@@ -1,0 +1,171 @@
+{
+  "timestamp": "2026-10-14T12:10:40.078Z",
+  "revision": 4,
+  "browser": {
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+    "viewport": {
+      "width": 1440,
+      "height": 900,
+      "devicePixelRatio": 1
+    },
+    "gpuRenderer": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+  },
+  "consoleAndShadowGate": {
+    "consoleErrors": [],
+    "consoleWarnings": [],
+    "zeroConsoleErrors": true,
+    "zeroDeprecationWarnings": true,
+    "shadowMapEnabled": true,
+    "shadowMapType": 1
+  },
+  "selfTestGate": {
+    "failedWhenBogusNodeInjected": true,
+    "restoredCleanPass": true,
+    "selfTestPassed": true
+  },
+  "sceneVerification": {
+    "worldVerification": {
+      "pass": true,
+      "checkedCount": 64,
+      "mismatches": []
+    },
+    "physicalMatCount": 162,
+    "clearcoatMatCount": 109,
+    "anisotropyMatCount": 2,
+    "normalMapMatCount": 15
+  },
+  "signaturePatchVerification": {
+    "unpatchedRms": 0.0635,
+    "lowCutoffHz": 160,
+    "lowCutoffRms": 0.0773,
+    "lowCutoffCentroidHz": 1312,
+    "highCutoffHz": 7200,
+    "highCutoffRms": 0.272,
+    "highCutoffCentroidHz": 4732.4,
+    "filterSweepOpenedAudibly": true,
+    "peakBelowClipping": true
+  },
+  "patchRuleValidation": {
+    "validConnectionsCreated": true,
+    "selfConnectionRejected": true,
+    "outputToOutputRejected": true,
+    "inputToInputRejected": true,
+    "cvToAudioInRejected": true,
+    "unsafeFeedbackLoopRejected": true
+  },
+  "knobVerification": {
+    "totalKnobsTested": 16,
+    "all16Functional": true
+  },
+  "tuningVerification": {
+    "checks": [
+      {
+        "keyId": "key_01_c3",
+        "note": "C3",
+        "midi": 48,
+        "expectedHz": 130.813,
+        "actualVco1Hz": 130.813,
+        "errorHz": 0
+      },
+      {
+        "keyId": "key_10_a3",
+        "note": "A3",
+        "midi": 57,
+        "expectedHz": 220,
+        "actualVco1Hz": 220,
+        "errorHz": 0
+      },
+      {
+        "keyId": "key_13_c4",
+        "note": "C4",
+        "midi": 60,
+        "expectedHz": 261.626,
+        "actualVco1Hz": 261.626,
+        "errorHz": 0
+      },
+      {
+        "keyId": "key_25_c5",
+        "note": "C5",
+        "midi": 72,
+        "expectedHz": 523.251,
+        "actualVco1Hz": 523.251,
+        "errorHz": 0
+      }
+    ],
+    "allAccurateWithin0_05Hz": true
+  },
+  "stuckNotePrevention": {
+    "activeBeforeBlur": 2,
+    "activeAfterBlur": 0,
+    "blurReleasesAllNotes": true
+  },
+  "midiInputVerification": {
+    "mode": "midi",
+    "available": false,
+    "status": "MIDI UNAVAILABLE: Permission denied or blocked (Permission to use Web MIDI API was not granted.)"
+  },
+  "turntableVerification": {
+    "rpm33State": {
+      "state": "playing_33",
+      "motorOn": true,
+      "tonearmLowered": true,
+      "rpm": 33.33,
+      "playbackRate": 1,
+      "positionSec": 0.331,
+      "platterAngleRad": -17.414,
+      "tonearmYawDeg": -17.66,
+      "tonearmPitchDeg": 0.14
+    },
+    "rpm45State": {
+      "state": "playing_45",
+      "motorOn": true,
+      "tonearmLowered": true,
+      "rpm": 45,
+      "playbackRate": 1.35,
+      "positionSec": 0.492,
+      "platterAngleRad": -17.964,
+      "tonearmYawDeg": -18.44,
+      "tonearmPitchDeg": 0.04
+    },
+    "rate33Expected": 1,
+    "rate45Expected": 1.35,
+    "positionBeforeSwitchSec": 0.331,
+    "positionAfterSwitchSec": 0.492,
+    "positionPreservedAcrossSpeedChange": true
+  },
+  "panicResetVerification": {
+    "activeNotesAfterReset": 0,
+    "turntableMotorAfterReset": false,
+    "rmsAfterReset": 0.0479
+  },
+  "performanceTelemetry": {
+    "sampledFrames": 90,
+    "avgFrameTimeMs": 16.66,
+    "p95FrameTimeMs": 19.2,
+    "measuredFps": 60,
+    "drawCalls": 328,
+    "triangles": 100352
+  },
+  "capturedScreenshots": {
+    "opening_studio": {
+      "path": "evidence/captures/rev4_opening_studio.png",
+      "bytes": 832238
+    },
+    "synth_rack_closeup": {
+      "path": "evidence/captures/rev4_synth_rack_closeup.png",
+      "bytes": 840062
+    },
+    "patch_and_keys": {
+      "path": "evidence/captures/rev4_patch_and_keys.png",
+      "bytes": 723528
+    },
+    "turntable_closeup": {
+      "path": "evidence/captures/rev4_turntable_closeup.png",
+      "bytes": 943490
+    },
+    "side_profile_tilt": {
+      "path": "evidence/captures/rev4_side_profile_tilt.png",
+      "bytes": 996780
+    }
+  }
+}

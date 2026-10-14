@@ -1,0 +1,152 @@
+{
+  "schema_version": "1.0.0",
+  "current_milestone": "M4_DELIVERED_AND_VERIFIED",
+  "build_revision": 5,
+  "updated_at": "2026-10-14T21:30:00+11:00",
+  "assigned_owners": {
+    "lead_integrator": {
+      "agent": "main_gemini_4_argon",
+      "scope": "Shared records (contract.json, world.json, progress.json), schema validation, pipeline calibration, Dark-Room PS5 Pro PBR shader & 60 FPS UI upgrade, 1080p60 4-Symphony Social Media Showcase Video production, final integration and verification."
+    },
+    "asset_lead": {
+      "agent": "image-generator & scripts/build_studio_assets.py",
+      "scope": "Nano Banana textures, 16-map PBR texture synthesis (scripts/prepare_textures.py), luthier long-axis wood UV alignment, 240-segment 2-track strobe platter, sculpted headshell/strobe prism, and headless Blender 5.2.2 LTS studio_scene.glb export."
+    },
+    "runtime_interaction_lead": {
+      "agent": "main_gemini_4_argon (public/src/studio-app.js & audio-engine.js)",
+      "scope": "Three.js r169 MeshPhysicalMaterial PBR loader with custom dark-room 1974 studio softbox PMREM HDRI, anisotropic jet-black vinyl grooves, corridor-routed braided 3D patch cables, 30 Hz throttled hover raycasting, GPU-composited hardware UI, QWERTY/MIDI input, and Web Audio synth + turntable engine."
+    },
+    "independent_reviewer": {
+      "agent": "gravitas-visual-critic (7de762f3 & baa9205c)",
+      "scope": "Independent read-only perceptual visual critique across Revisions 1, 2, 3, and 4."
+    }
+  },
+  "completed_work": [
+    {
+      "id": "env_and_calibration_pipeline",
+      "summary": "Verified Blender 5.2.2 LTS, Python 3.10, Nano Banana image-generator, and proved Blender -> calibration_knob.glb -> Three.js -> browser capture route (evidence/captures/calibration_knob_browser.png)."
+    },
+    {
+      "id": "nano_banana_and_16_pbr_maps",
+      "summary": "Generated Nano Banana concept studies and base textures (walnut, brushed gunmetal turntable deck, 1974 LP sleeve art, hardware UI console skin) and synthesized 16 high-DPI PBR albedo/normal/roughness maps via scripts/prepare_textures.py."
+    },
+    {
+      "id": "high_poly_bevelled_blender_scene",
+      "summary": "Built and verified 64/64 world.json entities in blender/studio_scene.blend and public/assets/models/studio_scene.glb with luthier-aligned long-axis wood UVs, 240-segment 2-track strobe platter, sculpted headshell/strobe prism, 56-segment fluted bakelite knobs, 32-segment hex sockets, 25 sculpted keys C3-C5, gatefold LP jacket, and full-span L-wrap walnut acoustic slat wall."
+    },
+    {
+      "id": "dark_room_ps5_pro_pbr_and_60fps_ui",
+      "summary": "Replaced white-ceiling RoomEnvironment with custom 1974 dark-room studio softbox PMREM HDRI so 180g vinyl stays jet-black with sharp amber/cyan anisotropic groove reflections, widened synth_rack_closeup framing, routed cross-bay patch cables through the clear inter-row corridor, and verified 60+ FPS and all audio/routing/tuning/self-test gates."
+    },
+    {
+      "id": "social_media_1080p60_4_symphonies_showcase",
+      "summary": "Produced 2-minute (120.0s, 7,200 frames @ locked 60.0 fps, 1920x1080 Full HD) social media showcase video (evidence/social_showcase_1974_symphonies_1080p60.mp4), 48 kHz stereo master WAV (evidence/social_showcase_1974_symphonies_48k.wav), companion SRT subtitles (evidence/social_showcase_1974_symphonies.srt), and social media post copy (evidence/social_media_post_caption.md) performing Beethoven 5th, Bach Toccata/Vivaldi Winter, Mozart 40th with live 33 1/3 <-> 45 RPM turntable switching, and Beethoven 9th Ode to Joy Finale."
+    }
+  ],
+  "unresolved_work": [],
+  "decisions": [
+    {
+      "id": "dec_01_units_and_axes",
+      "summary": "Locked 0.1 m source unit (8 units = 0.8 m rack width), 15-degree backward faceplate tilt, and glTF Y-up export mapping."
+    },
+    {
+      "id": "dec_02_ps5_pro_pbr_and_fast_ui",
+      "summary": "Replaced CSS backdrop-filter blur with Nano Banana brushed dark-bronze hardware rack skin (ui_hardware_console_skin.png), throttled hover raycasting and scope drawing to 30 Hz, and upgraded all 163 mesh primitives to MeshPhysicalMaterial."
+    },
+    {
+      "id": "dec_03_grill_me_rev4_dark_room_and_luthier_uvs",
+      "summary": "Locked 4 /grill-me decisions: (1) custom dark-room 1974 studio HDRI with dark ceiling and grazing 3200K/amber/cyan softboxes, (2) luthier-oriented long-axis walnut UVs + 240-segment 2-track strobe platter & sculpted headshell/strobe prism, (3) widened Modular Rack camera + inter-row corridor cable routing + shaft washers, and (4) extended acoustic slat wall + deep espresso leatherette desk with walnut bullnose trim."
+    },
+    {
+      "id": "dec_04_grill_me_social_showcase_1080p60",
+      "summary": "Locked /grill-me 2-minute (120.0s, 7,200 frames @ 60.0 fps, 1920x1080 Full HD) 4-Symphony Social Media Showcase specification with burned-in broadcast lower-third captions, companion SRT, 48 kHz stereo audio, live cable patching/re-patching, live knob sweeps with 3D amber halo ring, 25-key manual depression, and 33 1/3 <-> 45 RPM turntable speed shifts."
+    }
+  ],
+  "next_actions": [
+    "Maintain http://127.0.0.1:8088/ studio server for live user exploration."
+  ],
+  "review_evidence": [
+    {
+      "evidence_id": "ev_01_calibration_knob",
+      "build_revision": 1,
+      "type": "screenshot_capture",
+      "path": "evidence/captures/calibration_knob_browser.png",
+      "summary": "Proved headless Blender to GLB to Three.js browser rendering and audio picking on calibration_knob.glb.",
+      "verdict": "PASS"
+    },
+    {
+      "evidence_id": "ev_02_rev1_visual_critique",
+      "build_revision": 1,
+      "type": "independent_visual_critique",
+      "path": "evidence/captures/rev1_opening_studio.png",
+      "summary": "Independent gravitas-visual-critic (7de762f3) identified 5 visual/UX defects in Revision 1: top HUD overlap, cable droop over lower socket labels, tight turntable framing, blocky keybed geometry, and plain desk backdrop.",
+      "verdict": "REPAIRED_IN_REV2"
+    },
+    {
+      "evidence_id": "ev_03_rev2_visual_critique",
+      "build_revision": 2,
+      "type": "independent_visual_critique",
+      "path": "evidence/captures/rev2_opening_studio.png",
+      "summary": "Independent gravitas-visual-critic (baa9205c) confirmed all 5 Revision 1 layout, cable clearance, framing, and key-travel defects were resolved.",
+      "verdict": "PASS"
+    },
+    {
+      "evidence_id": "ev_04_rev3_ps5_pro_critique",
+      "build_revision": 3,
+      "type": "independent_visual_critique",
+      "path": "evidence/captures/rev3_opening_studio.png",
+      "summary": "Independent gravitas-visual-critic (baa9205c) verified Revision 3 material photorealism, bevelled/smooth geometry, and brushed-bronze hardware HUD.",
+      "verdict": "PASS"
+    },
+    {
+      "evidence_id": "ev_05_rev4_dark_room_and_automated_gates",
+      "build_revision": 4,
+      "type": "runtime_and_audio_verification",
+      "path": "evidence/audio_and_interaction_verification.json",
+      "summary": "Verified Revision 4 dark-room PBR studio, 64/64 world.json entities, 0 console errors, 0 deprecation warnings, G_SELF_TEST red->green gate, signature VCO1->VCF filter sweep, 5 patch rejection rules, all 16 knobs, 0.000 Hz tuning error across C3-C5, 33.3/45 RPM speed continuity, and 60+ FPS.",
+      "verdict": "PASS"
+    },
+    {
+      "evidence_id": "ev_06_social_showcase_1080p60",
+      "build_revision": 5,
+      "type": "video_showcase_1080p60",
+      "path": "evidence/social_showcase_1974_symphonies_1080p60.mp4",
+      "summary": "Verified 1920x1080 @ 60.0 fps (7,200 frames, 120.000000s, H.264 High Profile + 48 kHz 320 kbps stereo AAC, 231,993,642 bytes) 4-Symphony Social Media Showcase video alongside 48 kHz master WAV (Peak 0.8632, RMS 0.2737, zero clipping), 23-entry SRT subtitle file, and extracted frame verification across all 4 movements.",
+      "verdict": "PASS"
+    }
+  ],
+  "defect_repairs": [
+    {
+      "defect_id": "def_01_hud_and_cable_clearance",
+      "title": "Top HUD text collision and patch cable droop over lower-row socket labels",
+      "before_evidence": "evidence/captures/rev1_synth_rack_closeup.png",
+      "repair_summary": "Redesigned top HUD into a clean 2-tier flex header and constrained catenary cable sag with forward normal clearance.",
+      "after_evidence": "evidence/captures/rev2_synth_rack_closeup.png",
+      "status": "VERIFIED_FIXED"
+    },
+    {
+      "defect_id": "def_02_ps1_flat_shading_to_ps5_pbr",
+      "title": "Flat-shaded unbevelled geometry and basic materials upgraded to bevelled smooth-shaded 16-map MeshPhysicalMaterial PBR",
+      "before_evidence": "evidence/captures/rev2_turntable_closeup.png",
+      "repair_summary": "Added 3D bmesh bevels and smooth shading across all cabinet cheeks, plinth, keys, 56-segment knobs, 32-segment hex sockets, and 36-step S-shaped tonearm; generated 16 high-DPI PBR maps; enabled MeshPhysicalMaterial clearcoat, computed tangents, and vinyl anisotropy.",
+      "after_evidence": "evidence/captures/rev3_turntable_closeup.png",
+      "status": "VERIFIED_FIXED"
+    },
+    {
+      "defect_id": "def_03_ui_lag_and_frame_rate",
+      "title": "UI slowness caused by CSS backdrop-filter blur, per-move raycasting, and 60Hz FFT loop",
+      "before_evidence": "evidence/captures/rev2_opening_studio.png",
+      "repair_summary": "Removed all backdrop-filter blur in favour of GPU-promoted brushed-bronze hardware skin (ui_hardware_console_skin.png), throttled non-drag pointermove raycasting and scope drawing to 30 Hz, and added getFastWaveTelemetry(), achieving 60+ FPS.",
+      "after_evidence": "evidence/captures/rev3_opening_studio.png",
+      "status": "VERIFIED_FIXED"
+    },
+    {
+      "defect_id": "def_04_dark_room_contrast_wood_uvs_and_corridor_cables",
+      "title": "Overhead RoomEnvironment white-ceiling reflection washing out horizontal vinyl/desk surfaces, vertical wood grain on horizontal rails, and cross-bay cable crossing VCA GAIN CV",
+      "before_evidence": "evidence/captures/rev3_turntable_closeup.png",
+      "repair_summary": "Replaced RoomEnvironment with a custom dark-ceiling 1974 studio softbox HDRI so the 180g vinyl LP stays jet-black with sharp amber/cyan anisotropic streaks; oriented walnut UVs along the longest axis of every board; upgraded platter to 240-segment 2-track strobe dots with sculpted strobe prism; widened synth_rack_closeup camera; and routed cross-bay cables through the clear inter-row corridor.",
+      "after_evidence": "evidence/captures/rev4_turntable_closeup.png",
+      "status": "VERIFIED_FIXED"
+    }
+  ]
+}

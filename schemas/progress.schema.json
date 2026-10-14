@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Modular Synth & Turntable Studio Progress Record Schema",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "current_milestone",
+    "build_revision",
+    "updated_at",
+    "assigned_owners",
+    "completed_work",
+    "unresolved_work",
+    "decisions",
+    "next_actions",
+    "review_evidence",
+    "defect_repairs"
+  ],
+  "properties": {
+    "schema_version": { "type": "string" },
+    "current_milestone": { "type": "string" },
+    "build_revision": { "type": "integer" },
+    "updated_at": { "type": "string" },
+    "assigned_owners": {
+      "type": "object",
+      "required": ["lead_integrator", "asset_lead", "runtime_interaction_lead", "independent_reviewer"],
+      "properties": {
+        "lead_integrator": { "type": "object" },
+        "asset_lead": { "type": "object" },
+        "runtime_interaction_lead": { "type": "object" },
+        "independent_reviewer": { "type": "object" }
+      }
+    },
+    "completed_work": { "type": "array", "items": { "type": "object" } },
+    "unresolved_work": { "type": "array", "items": { "type": "object" } },
+    "decisions": { "type": "array", "items": { "type": "object" } },
+    "next_actions": { "type": "array", "items": { "type": "string" } },
+    "review_evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["evidence_id", "build_revision", "type", "path", "summary", "verdict"],
+        "properties": {
+          "evidence_id": { "type": "string" },
+          "build_revision": { "type": "integer" },
+          "type": { "type": "string" },
+          "path": { "type": "string" },
+          "summary": { "type": "string" },
+          "verdict": { "type": "string" }
+        }
+      }
+    },
+    "defect_repairs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["defect_id", "title", "before_evidence", "repair_summary", "after_evidence", "status"],
+        "properties": {
+          "defect_id": { "type": "string" },
+          "title": { "type": "string" },
+          "before_evidence": { "type": "string" },
+          "repair_summary": { "type": "string" },
+          "after_evidence": { "type": "string" },
+          "status": { "type": "string" }
+        }
+      }
+    }
+  }
+}

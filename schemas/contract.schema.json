@@ -1,0 +1,157 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Modular Synth & Turntable Studio Contract Schema",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "project_id",
+    "units",
+    "dimensions",
+    "axis_conversion",
+    "knobs",
+    "patch_sockets",
+    "patch_rules",
+    "keyboard",
+    "turntable",
+    "audio_graph"
+  ],
+  "properties": {
+    "schema_version": { "type": "string" },
+    "project_id": { "type": "string" },
+    "units": {
+      "type": "object",
+      "required": ["source_unit_m", "runtime_unit_m", "rack_width_m", "rack_width_source_units", "rack_backward_tilt_deg"],
+      "properties": {
+        "source_unit_m": { "type": "number", "const": 0.1 },
+        "runtime_unit_m": { "type": "number", "const": 1.0 },
+        "rack_width_m": { "type": "number", "const": 0.8 },
+        "rack_width_source_units": { "type": "number", "const": 8.0 },
+        "rack_backward_tilt_deg": { "type": "number", "const": 15.0 }
+      }
+    },
+    "dimensions": {
+      "type": "object",
+      "required": ["rack_width_m", "rack_height_m", "rack_depth_m", "keyboard_bed_depth_m", "turntable_plinth_width_m", "turntable_plinth_depth_m", "turntable_platter_diameter_m"],
+      "properties": {
+        "rack_width_m": { "type": "number" },
+        "rack_height_m": { "type": "number" },
+        "rack_depth_m": { "type": "number" },
+        "keyboard_bed_depth_m": { "type": "number" },
+        "turntable_plinth_width_m": { "type": "number" },
+        "turntable_plinth_depth_m": { "type": "number" },
+        "turntable_platter_diameter_m": { "type": "number" }
+      }
+    },
+    "axis_conversion": {
+      "type": "object",
+      "required": ["blender_axes", "threejs_axes", "gltf_export_yup", "position_mapping", "rotation_mapping"],
+      "properties": {
+        "blender_axes": { "type": "object" },
+        "threejs_axes": { "type": "object" },
+        "gltf_export_yup": { "type": "boolean", "const": true },
+        "position_mapping": { "type": "string" },
+        "rotation_mapping": { "type": "string" }
+      }
+    },
+    "knobs": {
+      "type": "array",
+      "minItems": 16,
+      "maxItems": 16,
+      "items": {
+        "type": "object",
+        "required": ["id", "node_name", "module", "label", "parameter", "unit", "min", "max", "default", "scale", "smoothing_tc_s", "pivot_axis_threejs", "angle_min_deg", "angle_max_deg"],
+        "properties": {
+          "id": { "type": "string" },
+          "node_name": { "type": "string" },
+          "module": { "type": "string" },
+          "label": { "type": "string" },
+          "parameter": { "type": "string" },
+          "unit": { "type": "string" },
+          "min": { "type": "number" },
+          "max": { "type": "number" },
+          "default": { "type": "number" },
+          "scale": { "type": "string", "enum": ["linear", "log"] },
+          "smoothing_tc_s": { "type": "number" },
+          "pivot_axis_threejs": { "type": "string", "enum": ["X", "Y", "Z"] },
+          "angle_min_deg": { "type": "number" },
+          "angle_max_deg": { "type": "number" }
+        }
+      }
+    },
+    "patch_sockets": {
+      "type": "array",
+      "minItems": 12,
+      "maxItems": 12,
+      "items": {
+        "type": "object",
+        "required": ["id", "node_name", "module", "label", "direction", "port_type", "signal_range", "web_audio_node"],
+        "properties": {
+          "id": { "type": "string" },
+          "node_name": { "type": "string" },
+          "module": { "type": "string" },
+          "label": { "type": "string" },
+          "direction": { "type": "string", "enum": ["output", "input"] },
+          "port_type": { "type": "string", "enum": ["audio_out", "audio_in", "cv_out", "cv_in"] },
+          "signal_range": { "type": "string" },
+          "web_audio_node": { "type": "string" }
+        }
+      }
+    },
+    "patch_rules": {
+      "type": "object",
+      "required": ["allowed_port_pairs", "rejected_conditions", "default_normalled_connections", "cable_clearance_min_m"],
+      "properties": {
+        "allowed_port_pairs": { "type": "array" },
+        "rejected_conditions": { "type": "array" },
+        "default_normalled_connections": { "type": "array" },
+        "cable_clearance_min_m": { "type": "number" }
+      }
+    },
+    "keyboard": {
+      "type": "object",
+      "required": ["key_count", "range", "hinge_axis_threejs", "travel_angle_deg", "spring_return_time_s", "keys"],
+      "properties": {
+        "key_count": { "type": "integer", "const": 25 },
+        "range": { "type": "string", "const": "C3-C5" },
+        "hinge_axis_threejs": { "type": "string" },
+        "travel_angle_deg": { "type": "number" },
+        "spring_return_time_s": { "type": "number" },
+        "keys": {
+          "type": "array",
+          "minItems": 25,
+          "maxItems": 25,
+          "items": {
+            "type": "object",
+            "required": ["id", "node_name", "note_name", "midi_note", "frequency_hz", "is_sharp", "qwerty_binding"],
+            "properties": {
+              "id": { "type": "string" },
+              "node_name": { "type": "string" },
+              "note_name": { "type": "string" },
+              "midi_note": { "type": "integer" },
+              "frequency_hz": { "type": "number" },
+              "is_sharp": { "type": "boolean" },
+              "qwerty_binding": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "turntable": {
+      "type": "object",
+      "required": ["platter_node", "tonearm_gimbal_node", "tonearm_headshell_node", "speed_switch_node", "start_stop_node", "native_rpm", "rpm_presets", "states"],
+      "properties": {
+        "platter_node": { "type": "object" },
+        "tonearm_gimbal_node": { "type": "object" },
+        "tonearm_headshell_node": { "type": "object" },
+        "speed_switch_node": { "type": "object" },
+        "start_stop_node": { "type": "object" },
+        "native_rpm": { "type": "number" },
+        "rpm_presets": { "type": "object" },
+        "states": { "type": "array" }
+      }
+    },
+    "audio_graph": {
+      "type": "object"
+    }
+  }
+}

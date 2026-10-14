@@ -1,0 +1,45 @@
+Build a complete playable 3D 1970s modular analogue synthesiser and vinyl turntable studio. Use Gemini 4 to direct and integrate the project, headless Blender Python for editable assets, Nano Banana for visual exploration and suitable image assets, Three.js for interaction and Web Audio for actual sound.
+
+EXECUTION, SHARED MEMORY AND AGENTS
+Run repeatable bpy scripts through Blender's background mode, resolving the installed executable and arguments first. Use the available skills for Blender/glTF authoring, image preparation, browser inspection and visual critique. Record a project-local procedure where no suitable skill exists. Verify the actual tool calls; a skill file does not establish a working connection.
+
+Maintain three schema-validated project records. contract.json defines shared units, axis conversion, naming and asset interfaces. world.json is the persistent authored-scene record: stable entity IDs, parent relationships, coordinate-tagged transforms, asset paths and revisions, material assignments, camera/light presets, selected references and settled visual decisions. Reference shared definitions in contract.json. Keep geometry in editable source assets; record how those assets assemble into the world. Keep transient gameplay state separate.
+
+The build/export scripts and runtime loader must consume world.json or check their outputs against it. Verify IDs, references, hierarchy and transform application after export and import. Rebuilding from the saved records must reconstruct the intended scene without relying on chat history.
+
+Keep progress.json with the current milestone, assigned owners, completed and unresolved work, decisions, next actions and review-evidence paths tied to the relevant build revision. Update it at each integration checkpoint and read all three records when resuming.
+
+Where multi-agent tools are available, assign an asset lead, a runtime/interaction lead and a reviewer who did not author the part under review. Give each bounded entity IDs, files, dependencies and acceptance checks. The lead integrator owns shared records and integration; workers propose shared changes instead of overwriting each other. Verify returned assets and evidence before accepting completion. Report a sequential fallback if subagents are unavailable.
+
+Prove the complete Blender-to-GLB-to-browser-to-inspected-image route before large asset batches. Separate technical checks from visual judgement. Reuse fixed review views, inspect motion, repair specific defects and record the result. Continue to the full requested experience within the authorised resource budget; checkpoint remaining work honestly when a limit is reached.
+
+CREATIVE TARGET
+Frame a walnut-sided modular rack and adjacent turntable as instruments within reach. Use dark anodised panels, cream markings, black fluted knobs with indicator inlays and restrained chrome fittings. Warm side lighting should reveal the wood and controls without obscuring labels. Make sound-making actions obvious from the opening view.
+
+The signature interaction is patching an oscillator into a filter, playing a note and hearing the filter open as its knob turns. The cable must connect the sockets visually and audibly. Beside it, lowering the tonearm starts a playable record; changing speed affects its motion and sound together.
+
+VERIFY THE PIPELINE
+Inspect the environment and dependencies. Export a working Blender knob to GLB, display it in Three.js and inspect its browser appearance. Verify knob picking and sound after an explicit user audio-activation gesture. Test Nano Banana access separately and report missing capabilities accurately.
+
+Explore a small set of instrument directions and retain one coherent design. Use Nano Banana for walnut studies, sleeve artwork or suitable surface imagery. Build panel lettering, scales and jack labels deterministically. Model or procedurally shade vinyl grooves at the intended viewing distance. Author material-specific roughness; derive normals only from suitable height data.
+
+CALIBRATE, THEN COMPLETE
+First integrate one oscillator, filter, envelope, key, knob and patch cable into an audible browser patch. Test the turntable with one short original generated audio buffer. Resolve interaction, audio routing and export issues, then complete the whole studio.
+
+Write contract.json with the 0.1 m source unit, 0.8 m rack width, 15-degree backward tilt, Blender-to-browser conversion, stable node names, pivot axes, audio port types and parameter ranges. Specify 16 useful knobs, 12 functional patch sockets and 25 hinged keys from C3 to C5. Include Turntable_Platter and Tonearm_Gimbal, their pivots and playable record states.
+
+Keep one asset lead responsible for cabinetry, panels and control consistency. Delegate audio and browser interaction against the shared port contract. Integrate regularly. Complete bakelite knobs, jack nuts, spring-return keys, the strobe-dotted platter, S-shaped tonearm, counterweight and cartridge.
+
+Implement an audible oscillator-filter-envelope-amplifier path, delay, keyboard input and preset patches. Make every labelled knob control its stated parameter with suitable ranges and smoothing. Patch connections must alter the audio graph; validate compatible sockets, reject unsafe routing and remove disconnected connections cleanly. Ensure note release, focus loss and preset changes cannot leave stuck notes.
+
+Use stable drooping cables with fixed socket endpoints and rack clearance; choose a curve or tested rope solver according to the interaction. Provide presets, clear cables, master volume, mute, a live waveform monitor and QWERTY/MIDI input selection with an explicit unavailable state.
+
+Make the record actually audible. Provide play/stop and tonearm control, with 33⅓ and 45 RPM presets. Match platter speed and playback rate relative to the record's declared native speed; preserve playback position during speed changes. Reset must stop and release all active sound.
+
+RENDER, INSPECT, REPAIR
+Inspect control pivots, key travel, labels, cable clearance and cartridge contact. Exercise complete patches in the browser and verify audible changes, routing, tuning, envelope release, speed changes and audio activation. Check output levels for clipping. Listen when playback inspection is available; otherwise state the listening gap and retain recordings and measured checks.
+
+Fix the three most consequential visual or audio defects, then compare the same views and actions again.
+
+DELIVER
+Provide the runnable studio, editable Blender assets, scripts, audio sources, contract, run instructions and review evidence. Measure performance in the actual browser, recording its version, viewport and device configuration. Report resource use, remaining defects and unverified behaviour. Complete the full experience or identify the stated resource limit that prevents completion.

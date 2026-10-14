@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>M1 Pipeline Calibration — 1974 Modular Synth & Turntable</title>
+  <style>
+    body { margin: 0; background: #121316; color: #f3ebd9; font-family: system-ui, sans-serif; overflow: hidden; }
+    #hud {
+      position: fixed; top: 16px; left: 16px; z-index: 10;
+      background: rgba(20, 22, 26, 0.92); border: 1px solid #d49a45;
+      padding: 14px 18px; border-radius: 6px; max-width: 420px;
+    }
+    h1 { font-size: 15px; margin: 0 0 8px 0; color: #f3ebd9; letter-spacing: 0.06em; }
+    .btn-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+    button {
+      background: #272b33; color: #f3ebd9; border: 1px solid #786a58;
+      padding: 6px 11px; border-radius: 4px; cursor: pointer; font-size: 12px;
+    }
+    button.active { background: #c97a2b; color: #111; font-weight: 700; }
+    #status { font-family: monospace; font-size: 12px; color: #9ad1d4; margin-top: 8px; white-space: pre-line; }
+  </style>
+  <link rel="icon" href="data:," />
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "/vendor/three/three.module.js",
+        "three/addons/": "/vendor/three/addons/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <div id="hud">
+    <h1>M1 CALIBRATION HARNESS (BLENDER GLB + THREE.JS + WEB AUDIO)</h1>
+    <div class="btn-row">
+      <button id="btn-activate-audio">1. Activate Audio Gesture</button>
+      <button id="btn-patch-vco-vcf">2. Patch VCO1 -> VCF</button>
+      <button id="btn-note-c3">3. Hold Key C3</button>
+      <button id="btn-tt-toggle">4. Turntable Play/Stop</button>
+      <button id="btn-tt-speed">5. RPM: 33⅓</button>
+    </div>
+    <div id="status">Loading calibration_knob.glb...</div>
+  </div>
+  <script type="module">
+    import * as THREE from 'three';
+    import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+    import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x111317);
+
+    const camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.01, 10);
+    camera.position.set(0.0, 0.045, 0.145);
+    camera.lookAt(0.0, 0.002, 0.0);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.0;
+    document.body.appendChild(renderer.domElement);
+
+    const pmrem = new THREE.PMREMGenerator(renderer);
+    scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+    scene.environmentIntensity = 0.30;
+
+    // Calibrated physical studio lighting (warm side key + cool fill + rim)
+    const keyLight = new THREE.DirectionalLight(0xffdcb4, 2.2);
+    keyLight.position.set(-0.35, 0.30, 0.35);
+    scene.add(keyLight);
+
+    const fillLight = new THREE.DirectionalLight(0xd0def5, 0.75);
+    fillLight.position.set(0.30, 0.20, 0.40);
+    scene.add(fillLight);
+
+    const rimLight = new THREE.DirectionalLight(0xff9d47, 1.1);
+    rimLight.position.set(0.25, 0.35, -0.20);
+    scene.add(rimLight);
+
+    // Anodised backing plate with silkscreen tick ring from synth_faceplate_albedo.png
+    const texLoader = new THREE.TextureLoader();
+    const panelTex = texLoader.load('/assets/textures/synth_faceplate_albedo.png');
+    panelTex.colorSpace = THREE.SRGBColorSpace;
+    // Crop UV around Knob_05_VCF_Cutoff (x = -0.145, y = 0.095 on 0.80 x 0.34m panel)
+    panelTex.repeat.set(0.18, 0.28);
+    panelTex.offset.set((-0.145 + 0.40) / 0.80 - 0.09, (0.095 + 0.17) / 0.34 - 0.16);
+
+    const panelGeo = new THREE.PlaneGeometry(0.14, 0.095);
+    const panelMat = new THREE.MeshStandardMaterial({
+      map: panelTex,
+      roughness: 0.52,
+      metalness: 0.35
+    });
+    const panelMesh = new THREE.Mesh(panelGeo, panelMat);
+    panelMesh.position.set(0, 0.004, 0);
+    scene.add(panelMesh);
+
+    // 2 Calibration Patch Sockets + 1 Hinged Key + Drooping Cable
+    const sockGeo = new THREE.CylinderGeometry(0.005, 0.005, 0.006, 6);
+    sockGeo.rotateX(Math.PI / 2);
+    const sockMat = new THREE.MeshStandardMaterial({ color: 0xd8dde4, roughness: 0.18, metalness: 0.9 });
+    const sockOut = new THREE.Mesh(sockGeo, sockMat);
+    sockOut.name = 'Socket_01_VCO1_Out';
+    sockOut.position.set(-0.038, -0.022, 0.003);
+    scene.add(sockOut);
+
+    const sockIn = new THREE.Mesh(sockGeo, sockMat);
+    sockIn.name = 'Socket_08_VCF_In';
+    sockIn.position.set(0.038, -0.022, 0.003);
+    scene.add(sockIn);
+
+    const keyGeo = new THREE.BoxGeometry(0.016, 0.006, 0.045);
+    keyGeo.translate(0, 0, 0.0225); // rear hinge pivot at z=0
+    const keyMat = new THREE.MeshStandardMaterial({ color: 0xf3ebd9, roughness: 0.24 });
+    const keyMesh = new THREE.Mesh(keyGeo, keyMat);
+    keyMesh.name = 'Key_01_C3';
+    keyMesh.position.set(-0.048, -0.008, 0.012);
+    scene.add(keyMesh);
+
+    let cableMesh = null;
+    function updateCableMesh(visible) {
+      if (cableMesh) {
+        scene.remove(cableMesh);
+        cableMesh.geometry.dispose();
+        cableMesh = null;
+      }
+      if (!visible) return;
+      const curve = new THREE.CatmullRomCurve3([
+        new THREE.Vector3(-0.038, -0.022, 0.008),
+        new THREE.Vector3(-0.020, -0.036, 0.026),
+        new THREE.Vector3(0.000, -0.042, 0.032),
+        new THREE.Vector3(0.020, -0.036, 0.026),
+        new THREE.Vector3(0.038, -0.022, 0.008)
+      ]);
+      const tubeGeo = new THREE.TubeGeometry(curve, 24, 0.0022, 8, false);
+      const tubeMat = new THREE.MeshStandardMaterial({ color: 0xc84b31, roughness: 0.45 });
+      cableMesh = new THREE.Mesh(tubeGeo, tubeMat);
+      cableMesh.name = 'Calibration_Patch_Cable';
+      scene.add(cableMesh);
+    }
+
+    // Load exported Blender GLB knob
+    let knobObj = null;
+    const loader = new GLTFLoader();
+    loader.load('/assets/models/calibration_knob.glb', (gltf) => {
+      knobObj = gltf.scene.getObjectByName('Knob_05_VCF_Cutoff') || gltf.scene.children[0];
+      knobObj.position.set(0, 0.008, 0.001);
+      scene.add(knobObj);
+      window.__calibrationState.glbLoaded = true;
+      window.__calibrationState.knobNodeName = knobObj.name;
+      updateHud();
+    });
+
+    // Web Audio Calibration Engine
+    let audioCtx = null;
+    let vco = null, vcoOut = null, vcf = null, envGain = null, masterGain = null, analyser = null;
+    let recordBuffer = null, recordSource = null, recordStartCtxTime = 0, recordOffsetSec = 0;
+
+    window.__calibrationState = {
+      glbLoaded: false,
+      knobNodeName: null,
+      audioState: 'suspended',
+      patched: false,
+      noteActive: false,
+      cutoffHz: 1200.0,
+      knobAngleDeg: 0.0,
+      turntablePlaying: false,
+      turntableRpm: 33.3333,
+      turntablePlaybackRate: 1.0,
+      turntablePositionSec: 0.0,
+      measuredRms: 0.0,
+      measuredPeak: 0.0
+    };
+
+    async function activateAudio() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        vco = audioCtx.createOscillator();
+        vco.type = 'sawtooth';
+        vco.frequency.value = 130.81; // C3
+
+        vcoOut = audioCtx.createGain();
+        vcoOut.gain.value = 0.5;
+
+        vcf = audioCtx.createBiquadFilter();
+        vcf.type = 'lowpass';
+        vcf.frequency.value = window.__calibrationState.cutoffHz;
+        vcf.Q.value = 3.5;
+
+        envGain = audioCtx.createGain();
+        envGain.gain.value = 0.0;
+
+        masterGain = audioCtx.createGain();
+        masterGain.gain.value = 0.7;
+
+        analyser = audioCtx.createAnalyser();
+        analyser.fftSize = 2048;
+
+        vco.connect(vcoOut);
+        // Only connected to vcf when patched!
+        vcf.connect(envGain);
+        envGain.connect(masterGain);
+        masterGain.connect(analyser);
+        analyser.connect(audioCtx.destination);
+        vco.start();
+
+        // Load original generated turntable audio buffer
+        const resp = await fetch('/assets/audio/chrono_analogue_side_a_33rpm.wav');
+        const arr = await resp.arrayBuffer();
+        recordBuffer = await audioCtx.decodeAudioData(arr);
+      }
+      if (audioCtx.state === 'suspended') {
+        await audioCtx.resume();
+      }
+      window.__calibrationState.audioState = audioCtx.state;
+      document.getElementById('btn-activate-audio').classList.add('active');
+      updateHud();
+    }
+
+    function setPatched(flag) {
+      if (!audioCtx) return;
+      try { vcoOut.disconnect(); } catch (e) {}
+      if (flag) {
+        vcoOut.connect(vcf);
+      }
+      window.__calibrationState.patched = flag;
+      updateCableMesh(flag);
+      document.getElementById('btn-patch-vco-vcf').classList.toggle('active', flag);
+      updateHud();
+    }
+
+    function setNoteC3(active) {
+      if (!audioCtx) return;
+      const now = audioCtx.currentTime;
+      envGain.gain.cancelScheduledValues(now);
+      envGain.gain.setValueAtTime(envGain.gain.value, now);
+      if (active) {
+        envGain.gain.linearRampToValueAtTime(0.65, now + 0.015);
+        keyMesh.rotation.x = THREE.MathUtils.degToRad(4.5);
+      } else {
+        envGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.18);
+        setTimeout(() => { if (!window.__calibrationState.noteActive && envGain) envGain.gain.value = 0; }, 200);
+        keyMesh.rotation.x = 0;
+      }
+      window.__calibrationState.noteActive = active;
+      document.getElementById('btn-note-c3').classList.toggle('active', active);
+      updateHud();
+    }
+
+    function setCutoffNormalized(norm01) {
+      const clamped = Math.max(0, Math.min(1, norm01));
+      const hz = 40.0 * Math.pow(16000.0 / 40.0, clamped);
+      const deg = -135.0 + clamped * 270.0;
+      window.__calibrationState.cutoffHz = Math.round(hz * 10) / 10;
+      window.__calibrationState.knobAngleDeg = Math.round(deg * 10) / 10;
+      if (knobObj) {
+        knobObj.rotation.z = THREE.MathUtils.degToRad(-deg);
+      }
+      if (vcf && audioCtx) {
+        vcf.frequency.setTargetAtTime(hz, audioCtx.currentTime, 0.015);
+      }
+      updateHud();
+    }
+
+    function toggleTurntable(play) {
+      if (!audioCtx || !recordBuffer) return;
+      const now = audioCtx.currentTime;
+      if (window.__calibrationState.turntablePlaying) {
+        const elapsed = (now - recordStartCtxTime) * window.__calibrationState.turntablePlaybackRate;
+        recordOffsetSec = (recordOffsetSec + elapsed) % recordBuffer.duration;
+        if (recordSource) {
+          try { recordSource.stop(); recordSource.disconnect(); } catch (e) {}
+          recordSource = null;
+        }
+        window.__calibrationState.turntablePlaying = false;
+      }
+      if (play) {
+        recordSource = audioCtx.createBufferSource();
+        recordSource.buffer = recordBuffer;
+        recordSource.loop = true;
+        recordSource.playbackRate.value = window.__calibrationState.turntablePlaybackRate;
+        recordSource.connect(masterGain);
+        recordStartCtxTime = now;
+        recordSource.start(0, recordOffsetSec);
+        window.__calibrationState.turntablePlaying = true;
+      }
+      window.__calibrationState.turntablePositionSec = Math.round(recordOffsetSec * 1000) / 1000;
+      document.getElementById('btn-tt-toggle').classList.toggle('active', window.__calibrationState.turntablePlaying);
+      updateHud();
+    }
+
+    function setTurntableRpm(rpm) {
+      const now = audioCtx ? audioCtx.currentTime : 0;
+      if (window.__calibrationState.turntablePlaying && recordBuffer) {
+        const elapsed = (now - recordStartCtxTime) * window.__calibrationState.turntablePlaybackRate;
+        recordOffsetSec = (recordOffsetSec + elapsed) % recordBuffer.duration;
+        recordStartCtxTime = now;
+      }
+      const rate = rpm > 40 ? (45.0 / 33.333333) : 1.0;
+      window.__calibrationState.turntableRpm = rpm;
+      window.__calibrationState.turntablePlaybackRate = Math.round(rate * 1000) / 1000;
+      window.__calibrationState.turntablePositionSec = Math.round(recordOffsetSec * 1000) / 1000;
+      if (recordSource && audioCtx) {
+        recordSource.playbackRate.setValueAtTime(rate, now);
+      }
+      document.getElementById('btn-tt-speed').textContent = rpm > 40 ? '5. RPM: 45' : '5. RPM: 33⅓';
+      updateHud();
+    }
+
+    function sampleAudioLevels() {
+      if (!analyser) return { rms: 0, peak: 0 };
+      const buf = new Float32Array(analyser.fftSize);
+      analyser.getFloatTimeDomainData(buf);
+      let sumSq = 0, peak = 0;
+      for (let i = 0; i < buf.length; i++) {
+        const a = Math.abs(buf[i]);
+        sumSq += a * a;
+        if (a > peak) peak = a;
+      }
+      const rms = Math.sqrt(sumSq / buf.length);
+      window.__calibrationState.measuredRms = Math.round(rms * 10000) / 10000;
+      window.__calibrationState.measuredPeak = Math.round(peak * 10000) / 10000;
+      return { rms: window.__calibrationState.measuredRms, peak: window.__calibrationState.measuredPeak };
+    }
+
+    // Raycast picking for Knob_05_VCF_Cutoff
+    const raycaster = new THREE.Raycaster();
+    const pointer = new THREE.Vector2();
+    let draggingKnob = false, startY = 0, startNorm = 0.568;
+
+    window.addEventListener('pointerdown', (e) => {
+      if (!knobObj) return;
+      pointer.x = (e.clientX / window.innerWidth) * 2 - 1;
+      pointer.y = -(e.clientY / window.innerHeight) * 2 + 1;
+      raycaster.setFromCamera(pointer, camera);
+      const hits = raycaster.intersectObject(knobObj, true);
+      if (hits.length > 0) {
+        draggingKnob = true;
+        startY = e.clientY;
+      }
+    });
+    window.addEventListener('pointermove', (e) => {
+      if (!draggingKnob) return;
+      const dy = (startY - e.clientY) / 150.0;
+      setCutoffNormalized(startNorm + dy);
+    });
+    window.addEventListener('pointerup', () => { draggingKnob = false; });
+
+    // Expose programmatic test hooks for Chrome DevTools MCP verification
+    window.__calibrationApi = {
+      activateAudio,
+      setPatched,
+      setNoteC3,
+      setCutoffNormalized,
+      toggleTurntable,
+      setTurntableRpm,
+      sampleAudioLevels,
+      pickCenterRay: () => {
+        if (!knobObj) return false;
+        raycaster.setFromCamera(new THREE.Vector2(0, 0.1), camera);
+        return raycaster.intersectObject(knobObj, true).length > 0;
+      }
+    };
+
+    document.getElementById('btn-activate-audio').onclick = () => activateAudio();
+    document.getElementById('btn-patch-vco-vcf').onclick = () => setPatched(!window.__calibrationState.patched);
+    document.getElementById('btn-note-c3').onclick = () => setNoteC3(!window.__calibrationState.noteActive);
+    document.getElementById('btn-tt-toggle').onclick = () => toggleTurntable(!window.__calibrationState.turntablePlaying);
+    document.getElementById('btn-tt-speed').onclick = () => setTurntableRpm(window.__calibrationState.turntableRpm > 40 ? 33.3333 : 45.0);
+
+    function updateHud() {
+      sampleAudioLevels();
+      document.getElementById('status').textContent = JSON.stringify(window.__calibrationState, null, 2);
+    }
+
+    function animate() {
+      requestAnimationFrame(animate);
+      sampleAudioLevels();
+      renderer.render(scene, camera);
+    }
+    animate();
+  </script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+node_modules/
+__pycache__/
+*.py[cod]
+*.blend1
+*.log
+.env
+.env.*
+Thumbs.db
+.DS_Store
+evidence/chrome_*/
+evidence/segments/
+evidence/social_showcase_1974_symphonies_1080p60.mp4

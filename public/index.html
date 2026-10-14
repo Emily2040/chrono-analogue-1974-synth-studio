@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="data:," />
+  <title>CHRONO ANALOGUE 1974 — Modular Synthesiser & Direct-Drive Turntable Studio</title>
+  <style>
+    :root {
+      --bg-dark: #0e0d0c;
+      --panel-bg: rgba(23, 24, 27, 0.88);
+      --panel-border: rgba(242, 233, 216, 0.16);
+      --cream: #f2e9d8;
+      --cream-muted: #b6aa96;
+      --amber: #e89b3c;
+      --orange: #d95b26;
+      --phosphor: #55e6a5;
+      --danger: #e25241;
+    }
+
+    * {
+      box-sizing: border-box;
+      user-select: none;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: var(--bg-dark);
+      color: var(--cream);
+      font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    #studio-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      display: block;
+      cursor: grab;
+    }
+
+    /* Unified Non-Overlapping Top Studio Header Stack */
+    .hud-top-stack {
+      position: fixed;
+      top: 8px;
+      left: 12px;
+      right: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .hud-top, .hud-subbar {
+      pointer-events: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 7px 14px;
+      background-color: #16181c;
+      background-image:
+        linear-gradient(180deg, rgba(255, 244, 224, 0.05) 0%, rgba(10, 11, 14, 0.72) 100%),
+        url('./assets/textures/ui_hardware_console_skin.png');
+      background-size: cover, 512px 256px;
+      border: 1px solid rgba(232, 168, 92, 0.28);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.12),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.75),
+        0 6px 18px rgba(0, 0, 0, 0.65);
+      border-radius: 5px;
+      flex-wrap: wrap;
+      transform: translateZ(0);
+    }
+
+    .hud-subbar {
+      padding: 5px 14px;
+      border-color: rgba(242, 233, 216, 0.18);
+    }
+
+    .brand-block {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-title {
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      color: var(--cream);
+      text-transform: uppercase;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.85);
+    }
+
+    .brand-sub {
+      font-size: 10px;
+      color: var(--cream-muted);
+      letter-spacing: 0.03em;
+    }
+
+    .badge {
+      font-size: 10px;
+      font-family: ui-monospace, 'Cascadia Code', Consolas, monospace;
+      padding: 3px 8px;
+      border-radius: 3px;
+      background: #0d100f;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.85);
+      color: var(--cream-muted);
+    }
+
+    .badge.badge-ok {
+      color: var(--phosphor);
+      border-color: rgba(85, 230, 165, 0.42);
+      background: #091510;
+      text-shadow: 0 0 6px rgba(85, 230, 165, 0.35);
+    }
+
+    .top-controls {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      flex-wrap: wrap;
+    }
+
+    button, select {
+      font-family: inherit;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--cream);
+      background: linear-gradient(180deg, #2b2f36 0%, #1b1e23 100%);
+      border: 1px solid rgba(242, 233, 216, 0.26);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.14),
+        0 2px 4px rgba(0, 0, 0, 0.55);
+      border-radius: 4px;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+
+    button:hover, select:hover {
+      background: linear-gradient(180deg, #363b44 0%, #23272e 100%);
+      border-color: rgba(242, 233, 216, 0.52);
+    }
+
+    button.active {
+      background: linear-gradient(180deg, #543819 0%, #33210d 100%);
+      border-color: var(--amber);
+      color: #ffdfa8;
+      box-shadow:
+        inset 0 1px 0 rgba(255, 214, 148, 0.28),
+        0 0 8px rgba(232, 155, 60, 0.25);
+    }
+
+    button.primary-audio {
+      background: linear-gradient(180deg, #e4662e 0%, #b84314 100%);
+      border-color: #f79768;
+      color: #fff;
+      font-weight: 800;
+      padding: 5px 12px;
+    }
+
+    button.primary-audio.activated {
+      background: linear-gradient(180deg, #1f7a53 0%, #134e35 100%);
+      border-color: var(--phosphor);
+      color: #ebfff6;
+    }
+
+    button.signature-btn {
+      background: linear-gradient(180deg, #4b3317 0%, #2d1e0c 100%);
+      border-color: var(--amber);
+      color: #ffdc9e;
+    }
+
+    button.danger {
+      background: linear-gradient(180deg, #6e241c 0%, #45140f 100%);
+      border-color: var(--danger);
+      color: #ffc2bb;
+    }
+
+    /* Camera Bar & Status Strip inside .hud-subbar */
+    .camera-bar {
+      display: flex;
+      gap: 5px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .camera-bar button {
+      font-size: 10px;
+      padding: 4px 8px;
+    }
+
+    .status-strip {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11px;
+      flex: 1;
+      min-width: 260px;
+      overflow: hidden;
+    }
+
+    #status-banner {
+      color: var(--cream);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    #status-banner[data-level="warn"] {
+      color: #ff9d5c;
+    }
+
+    #status-banner[data-level="ok"] {
+      color: var(--phosphor);
+    }
+
+    #hover-readout {
+      font-family: ui-monospace, 'Cascadia Code', Consolas, monospace;
+      font-size: 11px;
+      color: var(--amber);
+      padding: 2px 8px;
+      background: #0d0e11;
+      border: 1px solid rgba(232, 155, 60, 0.28);
+      border-radius: 3px;
+      white-space: nowrap;
+    }
+
+    /* Bottom Dock */
+    .hud-bottom {
+      position: fixed;
+      bottom: 10px;
+      left: 12px;
+      right: 12px;
+      display: grid;
+      grid-template-columns: 1.25fr 1.1fr 0.95fr;
+      gap: 10px;
+      z-index: 10;
+    }
+
+    .dock-card {
+      background-color: #16181c;
+      background-image:
+        linear-gradient(180deg, rgba(255, 244, 224, 0.05) 0%, rgba(10, 11, 14, 0.78) 100%),
+        url('./assets/textures/ui_hardware_console_skin.png');
+      background-size: cover, 512px 256px;
+      border: 1px solid rgba(232, 168, 92, 0.25);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.12),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.8),
+        0 6px 18px rgba(0, 0, 0, 0.7);
+      border-radius: 5px;
+      padding: 8px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      transform: translateZ(0);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--cream-muted);
+      text-transform: uppercase;
+    }
+
+    .patch-cables-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      min-height: 24px;
+      align-items: center;
+    }
+
+    .patch-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 10px;
+      padding: 3px 7px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 3px;
+    }
+
+    .patch-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .patch-empty {
+      font-size: 11px;
+      color: var(--cream-muted);
+      font-style: italic;
+    }
+
+    .control-row {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      flex-wrap: wrap;
+    }
+
+    .vol-group {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: var(--cream-muted);
+    }
+
+    input[type="range"] {
+      width: 78px;
+      accent-color: var(--amber);
+      cursor: pointer;
+    }
+
+    /* Waveform Monitor */
+    .scope-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    #scope-canvas {
+      width: 190px;
+      height: 44px;
+      border-radius: 4px;
+      border: 1px solid rgba(85, 230, 165, 0.28);
+      background: #0c100e;
+    }
+
+    .scope-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      font-family: ui-monospace, 'Cascadia Code', Consolas, monospace;
+      font-size: 10px;
+      color: var(--cream-muted);
+    }
+
+    #meter-readout {
+      color: var(--phosphor);
+    }
+
+    #meter-readout.clip-warn {
+      color: var(--danger);
+      font-weight: 700;
+    }
+
+    @media (max-width: 1100px) {
+      .hud-bottom {
+        grid-template-columns: 1fr;
+      }
+      .status-strip {
+        max-width: calc(100vw - 24px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="studio-canvas"></canvas>
+
+  <!-- Unified Top Studio Header Stack -->
+  <div class="hud-top-stack">
+    <header class="hud-top">
+      <div class="brand-block">
+        <div>
+          <div class="brand-title">CHRONO ANALOGUE // SYSTEM 1974</div>
+          <div class="brand-sub">Modular Analogue Synthesiser (0.8m / 15° Tilt) &amp; Direct-Drive Turntable</div>
+        </div>
+        <span id="world-verify-badge" class="badge">VERIFYING WORLD.JSON...</span>
+      </div>
+
+      <div class="top-controls">
+        <button id="btn-activate-audio" class="primary-audio">ACTIVATE STUDIO AUDIO</button>
+
+        <select id="preset-select" aria-label="Studio Patch Presets">
+          <option value="signature_unpatched">00. Ready to Patch (Connect VCO 1 → VCF IN)</option>
+          <option value="signature_patched_lead" selected>01. Signature 1974 Ladder Lead (VCO 1 → VCF)</option>
+          <option value="velvet_bass_pluck">02. Warm Walnut Sub Bass</option>
+          <option value="cosmic_lfo_sweep">03. Kosmische LFO Modulated Pad</option>
+          <option value="phono_through_filter">04. Vinyl Turntable → Ladder VCF &amp; BBD Delay</option>
+        </select>
+
+        <button id="btn-signature-patch" class="signature-btn" title="Connects VCO 1 OUT to VCF AUDIO IN">PATCH VCO 1 → VCF</button>
+        <button id="btn-clear-cables">CLEAR CABLES</button>
+
+        <div class="vol-group">
+          <span>MASTER</span>
+          <input id="slider-master-vol" type="range" min="0" max="1" step="0.01" value="0.80" />
+          <span id="val-master-vol">80%</span>
+        </div>
+
+        <button id="btn-mute">MUTE</button>
+        <button id="btn-reset-studio" title="Stop all active notes, stop turntable, and reset parameters">RESET</button>
+      </div>
+    </header>
+
+    <div class="hud-subbar">
+      <div class="status-strip">
+        <span id="status-banner" data-level="info">Initializing 3D Studio...</span>
+        <span id="hover-readout">Hover any knob, socket, key, or tonearm</span>
+      </div>
+
+      <nav class="camera-bar" aria-label="Camera Views">
+        <button data-camera-preset="opening_studio" class="active">1. Overview</button>
+        <button data-camera-preset="synth_rack_closeup">2. Modular Rack</button>
+        <button data-camera-preset="patch_and_keys">3. Patch &amp; Keys</button>
+        <button data-camera-preset="turntable_closeup">4. Turntable</button>
+        <button data-camera-preset="side_profile_tilt">5. 15° Side Profile</button>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Bottom Control Dock -->
+  <footer class="hud-bottom">
+    <!-- Patch Bay & Input Mode -->
+    <section class="dock-card">
+      <div class="card-header">
+        <span>PATCH MATRIX (12 SOCKETS · CLICK SOCKET A → B TO PATCH)</span>
+        <span id="input-mode-status">QWERTY Active (Z–M / Q–I)</span>
+      </div>
+      <div id="patch-cables-list" class="patch-cables-row"></div>
+    </section>
+
+    <!-- Direct-Drive Vinyl Turntable Controls -->
+    <section class="dock-card">
+      <div class="card-header">
+        <span>CHRONO-DRIVE TURNTABLE (NATIVE 33⅓ RPM LP)</span>
+        <span id="tt-state-readout">STOPPED_REST · 33⅓ RPM</span>
+      </div>
+      <div class="control-row">
+        <button id="btn-tt-power">START PLATTER</button>
+        <button id="btn-tt-tonearm" class="signature-btn">LOWER TONEARM</button>
+        <button id="btn-tt-33" class="active">33⅓ RPM (1.00x)</button>
+        <button id="btn-tt-45">45 RPM (1.35x)</button>
+        <button id="btn-input-qwerty" class="active">QWERTY KEYS</button>
+        <button id="btn-input-midi">WEB MIDI</button>
+      </div>
+    </section>
+
+    <!-- Live Waveform & Output Level Monitor -->
+    <section class="dock-card">
+      <div class="card-header">
+        <span>WAVEFORM MONITOR &amp; HEADROOM</span>
+        <span>24 dB/OCT LADDER + BBD</span>
+      </div>
+      <div class="scope-wrap">
+        <canvas id="scope-canvas" width="220" height="48"></canvas>
+        <div class="scope-meta">
+          <div id="meter-readout">PEAK 0.000 · RMS 0.000</div>
+          <div>Keys: Z–M (C3–B3), Q–I (C4–C5)</div>
+          <div>Double-click any knob to reset</div>
+        </div>
+      </div>
+    </section>
+  </footer>
+
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "./vendor/three/three.module.js",
+        "three/addons/": "./vendor/three/addons/"
+      }
+    }
+  </script>
+  <script type="module" src="./src/studio-app.js"></script>
+</body>
+</html>

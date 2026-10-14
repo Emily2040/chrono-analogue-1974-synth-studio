@@ -1,0 +1,1939 @@
+{
+  "schema_version": "1.0.0",
+  "contract_ref": "contract.json",
+  "revision": 4,
+  "coordinate_frame": "threejs_meters_yup",
+  "selected_visual_direction": {
+    "id": "dir_01_1974_walnut_anodised_studio",
+    "name": "1974 American Black Walnut & Charcoal Anodised Laboratory Console (Dark-Room PS5 Pro PBR Revision 4)",
+    "rationale": "Combines luthier-oriented oiled American walnut cabinetry with clearcoat and wood-pore normal/roughness maps, deep charcoal-black brushed anodised aluminium panels (#101215) with engraved module bay seams, corner screws, and potentiometer shaft bushings, high-contrast warm cream silk-screened scales (#faf2e0), 56-segment bevelled fluted black bakelite knobs, woven braided 3D patch cables routed cleanly through the inter-row corridor, and a dark gunmetal direct-drive turntable deck with a 240-segment 2-track strobe platter and sculpted strobe prism under a custom 1974 dark-room studio softbox HDRI.",
+    "reference_images": [
+      "evidence/captures/concept_direction_1_walnut_anodised.png",
+      "evidence/captures/concept_direction_2_teak_silver_broadcast.png",
+      "public/assets/textures/walnut_wood_grain.png",
+      "public/assets/textures/vinyl_sleeve_art.png",
+      "public/assets/textures/synth_faceplate_albedo.png",
+      "public/assets/textures/turntable_deck_albedo.png",
+      "public/assets/textures/ui_hardware_console_skin.png"
+    ],
+    "settled_decisions": [
+      "0.8 m rack width (8 x 0.1 m source units) divided into 4 x 0.2 m module bays: VCO, VCF, ENV/VCA, LFO/DELAY.",
+      "15-degree backward tilt on Synth_Faceplate_Frame for natural sightlines to all 16 knobs and 12 patch sockets.",
+      "Custom 1974 dark-room studio environment map (dark acoustic ceiling + grazing 3200K warm key, cool cyan fill, and amber rim softbox strips) so the 180g vinyl LP stays jet-black with sharp anisotropic bow-tie groove reflections.",
+      "Luthier-grade wood UV orientation along the longest axis of every cabinet cheek, rail, bullnose trim, and acoustic slat.",
+      "240-segment 2-track cast-aluminium strobe platter rim with a glowing neon-amber prism tower, 45-RPM adapter puck, hydraulic cueing lever, and slotted die-cast magnesium headshell.",
+      "Cross-bay patch cables routed through the clear horizontal corridor between upper [OUT] and lower [IN] jack rows so intermediate sockets (VCA GAIN CV) remain 100% unobstructed.",
+      "GPU-composited brushed-metal hardware HUD (ui_hardware_console_skin.png, zero backdrop-filter blur) running at 60 FPS alongside 30 Hz throttled hover raycasting and fast oscilloscope telemetry."
+    ]
+  },
+  "assets": [
+    {
+      "asset_id": "calibration_knob_glb",
+      "type": "glb_model",
+      "source_path": "blender/calibration_knob.blend",
+      "runtime_path": "public/assets/models/calibration_knob.glb",
+      "revision": 1,
+      "generator_script": "scripts/build_calibration_knob.py"
+    },
+    {
+      "asset_id": "studio_scene_glb",
+      "type": "glb_model",
+      "source_path": "blender/studio_scene.blend",
+      "runtime_path": "public/assets/models/studio_scene.glb",
+      "revision": 4,
+      "generator_script": "scripts/build_studio_assets.py"
+    },
+    {
+      "asset_id": "tex_walnut_albedo",
+      "type": "texture_albedo",
+      "source_path": "public/assets/textures/walnut_wood_grain.png",
+      "runtime_path": "public/assets/textures/walnut_wood_grain.png",
+      "revision": 4,
+      "generator_script": "scripts/prepare_textures.py"
+    },
+    {
+      "asset_id": "tex_walnut_normal",
+      "type": "texture_normal",
+      "source_path": "public/assets/textures/walnut_wood_normal.png",
+      "runtime_path": "public/assets/textures/walnut_wood_normal.png",
+      "revision": 4,
+      "generator_script": "scripts/prepare_textures.py"
+    },
+    {
+      "asset_id": "tex_walnut_roughness",
+      "type": "texture_roughness",
+      "source_path": "public/assets/textures/walnut_wood_roughness.png",
+      "runtime_path": "public/assets/textures/walnut_wood_roughness.png",
+      "revision": 4,
+      "generator_script": "scripts/prepare_textures.py"
+    },
+    {
+      "asset_id": "tex_faceplate_albedo",
+      "type": "texture_albedo",
+      "source_path": "public/assets/textures/synth_faceplate_albedo.png",
+      "runtime_path": "public/assets/textures/synth_faceplate_albedo.png",
+      "revision": 4,
+      "generator_script": "scripts/prepare_textures.py"
+    },
+    {
+      "asset_id": "tex_faceplate_normal",
+      "type": "texture_normal",
+      "source_path": "public/assets/textures/synth_faceplate_normal.png",
+      "runtime_path": "public/assets/textures/synth_faceplate_normal.png",
+      "revision": 4,
+      "generator_script": "scripts/prepare_textures.py"
+    },
+    {
+      "asset_id": "tex_faceplate_roughness",
+      "type": "texture_roughness",
+      "source_path": "public/assets/textures/synth_faceplate_roughness.png",
+      "runtime_path": "public/assets/textures/synth_faceplate_roughness.png",
+      "revision": 4,
+      "generator_script": "scripts/prepare_textures.py"
+    },
+    {
+      "asset_id": "tex_turntable_deck_albedo",
+      "type": "texture_albedo",
+      "source_path": "public/assets/textures/turntable_deck_albedo.png",
+      "runtime_path": "public/assets/textures/turntable_deck_albedo.png",
+      "revision": 4,
+      "generator_script": "scripts/prepare_textures.py"
+    },
+    {
+      "asset_id": "tex_turntable_deck_normal",
+      "type": "texture_normal",
+      "source_path": "public/assets/textures/turntable_deck_normal.png",
+      "runtime_path": "public/assets/textures/turntable_deck_normal.png",
+      "revision": 4,
+      "generator_script": "scripts/prepare_textures.py"
+    },
+    {
+      "asset_id": "tex_turntable_deck_roughness",
+      "type": "texture_roughness",
+      "source_path": "public/assets/textures/turntable_deck_roughness.png",
+      "runtime_path": "public/assets/textures/turntable_deck_roughness.png",
+      "revision": 4,
+      "generator_script": "scripts/prepare_textures.py"
+    },
+    {
+      "asset_id": "tex_studio_desk_albedo",
+      "type": "texture_albedo",
+      "source_path": "public/assets/textures/studio_desk_albedo.png",
+      "runtime_path": "public/assets/textures/studio_desk_albedo.png",
+      "revision": 4,
+      "generator_script": "scripts/prepare_textures.py"
+    },
+    {
+      "asset_id": "tex_studio_desk_normal",
+      "type": "texture_normal",
+      "source_path": "public/assets/textures/studio_desk_normal.png",
+      "runtime_path": "public/assets/textures/studio_desk_normal.png",
+      "revision": 4,
+      "generator_script": "scripts/prepare_textures.py"
+    },
+    {
+      "asset_id": "tex_studio_desk_roughness",
+      "type": "texture_roughness",
+      "source_path": "public/assets/textures/studio_desk_roughness.png",
+      "runtime_path": "public/assets/textures/studio_desk_roughness.png",
+      "revision": 4,
+      "generator_script": "scripts/prepare_textures.py"
+    },
+    {
+      "asset_id": "tex_ui_hardware_skin",
+      "type": "texture_albedo",
+      "source_path": "public/assets/textures/ui_hardware_console_skin.png",
+      "runtime_path": "public/assets/textures/ui_hardware_console_skin.png",
+      "revision": 4,
+      "generator_script": "scripts/prepare_textures.py"
+    },
+    {
+      "asset_id": "tex_vinyl_grooves_normal",
+      "type": "texture_normal",
+      "source_path": "public/assets/textures/vinyl_grooves_normal.png",
+      "runtime_path": "public/assets/textures/vinyl_grooves_normal.png",
+      "revision": 4,
+      "generator_script": "scripts/prepare_textures.py"
+    },
+    {
+      "asset_id": "tex_vinyl_label",
+      "type": "texture_albedo",
+      "source_path": "public/assets/textures/vinyl_label_albedo.png",
+      "runtime_path": "public/assets/textures/vinyl_label_albedo.png",
+      "revision": 4,
+      "generator_script": "scripts/prepare_textures.py"
+    },
+    {
+      "asset_id": "tex_sleeve_art",
+      "type": "texture_albedo",
+      "source_path": "public/assets/textures/vinyl_sleeve_art.png",
+      "runtime_path": "public/assets/textures/vinyl_sleeve_art.png",
+      "revision": 4,
+      "generator_script": "scripts/prepare_textures.py"
+    },
+    {
+      "asset_id": "audio_turntable_lp",
+      "type": "audio_wav",
+      "source_path": "public/assets/audio/chrono_analogue_side_a_33rpm.wav",
+      "runtime_path": "public/assets/audio/chrono_analogue_side_a_33rpm.wav",
+      "revision": 1,
+      "generator_script": "scripts/generate_record_audio.py"
+    }
+  ],
+  "materials": [
+    {
+      "material_id": "mat_walnut_cabinet",
+      "base_color_hex": "#4e2c18",
+      "roughness": 0.32,
+      "metalness": 0.0,
+      "textures": {
+        "map": "public/assets/textures/walnut_wood_grain.png",
+        "normalMap": "public/assets/textures/walnut_wood_normal.png",
+        "roughnessMap": "public/assets/textures/walnut_wood_roughness.png"
+      },
+      "notes": "Hand-rubbed satin oiled American walnut cabinet cheeks, plinth, and bullnose rail with long-axis luthier UVs and clearcoat=0.54."
+    },
+    {
+      "material_id": "mat_anodised_panel",
+      "base_color_hex": "#101215",
+      "roughness": 0.38,
+      "metalness": 0.5,
+      "textures": {
+        "map": "public/assets/textures/synth_faceplate_albedo.png",
+        "normalMap": "public/assets/textures/synth_faceplate_normal.png",
+        "roughnessMap": "public/assets/textures/synth_faceplate_roughness.png"
+      },
+      "notes": "Deep charcoal-black brushed anodised aluminium panel with engraved bay seams, corner screws, shaft bushings, and cream silkscreen markings."
+    },
+    {
+      "material_id": "mat_turntable_deck",
+      "base_color_hex": "#1f2226",
+      "roughness": 0.3,
+      "metalness": 0.78,
+      "textures": {
+        "map": "public/assets/textures/turntable_deck_albedo.png",
+        "normalMap": "public/assets/textures/turntable_deck_normal.png",
+        "roughnessMap": "public/assets/textures/turntable_deck_roughness.png"
+      },
+      "notes": "Deep brushed gunmetal direct-drive turntable deck plate with silkscreened CHRONO-DRIVE DD-1974 and speed markings."
+    },
+    {
+      "material_id": "mat_anodised_trim",
+      "base_color_hex": "#15171b",
+      "roughness": 0.34,
+      "metalness": 0.6,
+      "notes": "Clean satin dark anodised chassis rails and keybed surround isolated from faceplate normal maps."
+    },
+    {
+      "material_id": "mat_bakelite_knob",
+      "base_color_hex": "#070709",
+      "roughness": 0.18,
+      "metalness": 0.04,
+      "notes": "56-segment bevelled fluted phenolic bakelite knob with spun-aluminium cap and bevelled cream indicator inlay."
+    },
+    {
+      "material_id": "mat_chrome_fitting",
+      "base_color_hex": "#dce2ea",
+      "roughness": 0.08,
+      "metalness": 0.97,
+      "notes": "Mirror-polished chrome for 32-segment chamfered hex jack nuts, 36-step S-shaped tonearm, gimbal, and 240-segment strobe rim."
+    },
+    {
+      "material_id": "mat_ivory_key",
+      "base_color_hex": "#f3ebd9",
+      "roughness": 0.15,
+      "metalness": 0.0,
+      "notes": "Bevelled warm vintage acrylic natural keys with clearcoat=0.82."
+    },
+    {
+      "material_id": "mat_ebony_key",
+      "base_color_hex": "#070709",
+      "roughness": 0.18,
+      "metalness": 0.04,
+      "notes": "Sculpted sloped satin black sharp keys with clearcoat=0.72."
+    },
+    {
+      "material_id": "mat_vinyl_record",
+      "base_color_hex": "#050507",
+      "roughness": 0.16,
+      "metalness": 0.08,
+      "textures": {
+        "normalMap": "public/assets/textures/vinyl_grooves_normal.png",
+        "labelMap": "public/assets/textures/vinyl_label_albedo.png"
+      },
+      "notes": "Jet-black 180g vinyl LP with height-derived concentric micro-groove normal map, clearcoat=0.92, and anisotropy=0.90."
+    },
+    {
+      "material_id": "mat_record_sleeve",
+      "base_color_hex": "#e8dfd1",
+      "roughness": 0.48,
+      "metalness": 0.0,
+      "textures": {
+        "map": "public/assets/textures/vinyl_sleeve_art.png"
+      },
+      "notes": "Gatefold cardboard LP jacket with bevelled spine, inner dust sleeve, peeking vinyl rim, and 1974 Nano Banana cover artwork."
+    },
+    {
+      "material_id": "mat_studio_slate_desk",
+      "base_color_hex": "#161210",
+      "roughness": 0.74,
+      "metalness": 0.02,
+      "textures": {
+        "map": "public/assets/textures/studio_desk_albedo.png",
+        "normalMap": "public/assets/textures/studio_desk_normal.png",
+        "roughnessMap": "public/assets/textures/studio_desk_roughness.png"
+      },
+      "notes": "Deep espresso-charcoal padded studio console leatherette blotter surface with front walnut bullnose rail and full-span L-wrap walnut acoustic slat wall."
+    }
+  ],
+  "camera_presets": [
+    {
+      "preset_id": "opening_studio",
+      "label": "Studio Overview (Both Instruments)",
+      "position_m": [
+        0.02,
+        0.52,
+        1.18
+      ],
+      "target_m": [
+        0.02,
+        0.15,
+        0.02
+      ],
+      "fov_deg": 40.0
+    },
+    {
+      "preset_id": "synth_rack_closeup",
+      "label": "Modular Rack & Patch Bay",
+      "position_m": [
+        -0.22,
+        0.34,
+        0.76
+      ],
+      "target_m": [
+        -0.22,
+        0.21,
+        -0.04
+      ],
+      "fov_deg": 36.0
+    },
+    {
+      "preset_id": "patch_and_keys",
+      "label": "Patch Sockets & Hinged Keyboard",
+      "position_m": [
+        -0.22,
+        0.33,
+        0.68
+      ],
+      "target_m": [
+        -0.22,
+        0.11,
+        0.06
+      ],
+      "fov_deg": 37.0
+    },
+    {
+      "preset_id": "turntable_closeup",
+      "label": "Turntable, Platter & Tonearm",
+      "position_m": [
+        0.44,
+        0.42,
+        0.58
+      ],
+      "target_m": [
+        0.44,
+        0.04,
+        0.02
+      ],
+      "fov_deg": 33.0
+    },
+    {
+      "preset_id": "side_profile_tilt",
+      "label": "15\u00b0 Rack Tilt & Cable Clearance Profile",
+      "position_m": [
+        -0.84,
+        0.28,
+        0.34
+      ],
+      "target_m": [
+        -0.22,
+        0.17,
+        0.02
+      ],
+      "fov_deg": 34.0
+    }
+  ],
+  "lighting_rig": [
+    {
+      "light_id": "warm_key_side_left",
+      "type": "DirectionalLight",
+      "color_hex": "#ffd8ad",
+      "intensity": 3.15,
+      "position_m": [
+        -0.86,
+        0.92,
+        0.78
+      ]
+    },
+    {
+      "light_id": "panel_fill_front",
+      "type": "DirectionalLight",
+      "color_hex": "#b8d4f2",
+      "intensity": 0.82,
+      "position_m": [
+        0.74,
+        0.96,
+        0.78
+      ]
+    },
+    {
+      "light_id": "amber_back_rim",
+      "type": "DirectionalLight",
+      "color_hex": "#ff9c3b",
+      "intensity": 1.75,
+      "position_m": [
+        0.86,
+        0.56,
+        -0.62
+      ]
+    },
+    {
+      "light_id": "strobe_prism_neon",
+      "type": "PointLight",
+      "color_hex": "#ff5e14",
+      "intensity": 0.42,
+      "position_m": [
+        0.295,
+        0.066,
+        0.142
+      ]
+    }
+  ],
+  "entities": [
+    {
+      "entity_id": "studio_desk",
+      "node_name": "Studio_Desk_Surface",
+      "parent_id": null,
+      "category": "environment",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        0.0,
+        -0.02,
+        0.0
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_studio_slate_desk"
+    },
+    {
+      "entity_id": "synth_cabinet_root",
+      "node_name": "Synth_Cabinet_Root",
+      "parent_id": null,
+      "category": "cabinet",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        -0.22,
+        0.0,
+        0.0
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_walnut_cabinet"
+    },
+    {
+      "entity_id": "synth_faceplate_frame",
+      "node_name": "Synth_Faceplate_Frame",
+      "parent_id": "synth_cabinet_root",
+      "category": "panel",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        0.0,
+        0.255,
+        -0.045
+      ],
+      "rotation_euler_deg": [
+        -15.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_anodised_panel"
+    },
+    {
+      "entity_id": "synth_keybed_frame",
+      "node_name": "Synth_Keybed_Frame",
+      "parent_id": "synth_cabinet_root",
+      "category": "keybed",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        0.0,
+        0.048,
+        0.165
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_anodised_trim"
+    },
+    {
+      "entity_id": "knob_vco1_pitch",
+      "node_name": "Knob_01_VCO1_Pitch",
+      "parent_id": "synth_faceplate_frame",
+      "category": "knob",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        -0.345,
+        0.095,
+        0.012
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_bakelite_knob",
+      "contract_ref_id": "knob_vco1_pitch"
+    },
+    {
+      "entity_id": "knob_vco1_wave",
+      "node_name": "Knob_02_VCO1_Wave",
+      "parent_id": "synth_faceplate_frame",
+      "category": "knob",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        -0.245,
+        0.095,
+        0.012
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_bakelite_knob",
+      "contract_ref_id": "knob_vco1_wave"
+    },
+    {
+      "entity_id": "knob_vco2_detune",
+      "node_name": "Knob_03_VCO2_Detune",
+      "parent_id": "synth_faceplate_frame",
+      "category": "knob",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        -0.345,
+        0.01,
+        0.012
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_bakelite_knob",
+      "contract_ref_id": "knob_vco2_detune"
+    },
+    {
+      "entity_id": "knob_vco2_mix",
+      "node_name": "Knob_04_VCO2_Mix",
+      "parent_id": "synth_faceplate_frame",
+      "category": "knob",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        -0.245,
+        0.01,
+        0.012
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_bakelite_knob",
+      "contract_ref_id": "knob_vco2_mix"
+    },
+    {
+      "entity_id": "knob_vcf_cutoff",
+      "node_name": "Knob_05_VCF_Cutoff",
+      "parent_id": "synth_faceplate_frame",
+      "category": "knob",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        -0.145,
+        0.095,
+        0.012
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_bakelite_knob",
+      "contract_ref_id": "knob_vcf_cutoff"
+    },
+    {
+      "entity_id": "knob_vcf_resonance",
+      "node_name": "Knob_06_VCF_Resonance",
+      "parent_id": "synth_faceplate_frame",
+      "category": "knob",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        -0.045,
+        0.095,
+        0.012
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_bakelite_knob",
+      "contract_ref_id": "knob_vcf_resonance"
+    },
+    {
+      "entity_id": "knob_vcf_env_amt",
+      "node_name": "Knob_07_VCF_EnvAmt",
+      "parent_id": "synth_faceplate_frame",
+      "category": "knob",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        -0.145,
+        0.01,
+        0.012
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_bakelite_knob",
+      "contract_ref_id": "knob_vcf_env_amt"
+    },
+    {
+      "entity_id": "knob_vcf_drive",
+      "node_name": "Knob_08_VCF_Drive",
+      "parent_id": "synth_faceplate_frame",
+      "category": "knob",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        -0.045,
+        0.01,
+        0.012
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_bakelite_knob",
+      "contract_ref_id": "knob_vcf_drive"
+    },
+    {
+      "entity_id": "knob_env_attack",
+      "node_name": "Knob_09_ENV_Attack",
+      "parent_id": "synth_faceplate_frame",
+      "category": "knob",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        0.055,
+        0.095,
+        0.012
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_bakelite_knob",
+      "contract_ref_id": "knob_env_attack"
+    },
+    {
+      "entity_id": "knob_env_decay",
+      "node_name": "Knob_10_ENV_Decay",
+      "parent_id": "synth_faceplate_frame",
+      "category": "knob",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        0.155,
+        0.095,
+        0.012
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_bakelite_knob",
+      "contract_ref_id": "knob_env_decay"
+    },
+    {
+      "entity_id": "knob_env_sustain",
+      "node_name": "Knob_11_ENV_Sustain",
+      "parent_id": "synth_faceplate_frame",
+      "category": "knob",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        0.055,
+        0.01,
+        0.012
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_bakelite_knob",
+      "contract_ref_id": "knob_env_sustain"
+    },
+    {
+      "entity_id": "knob_env_release",
+      "node_name": "Knob_12_ENV_Release",
+      "parent_id": "synth_faceplate_frame",
+      "category": "knob",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        0.155,
+        0.01,
+        0.012
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_bakelite_knob",
+      "contract_ref_id": "knob_env_release"
+    },
+    {
+      "entity_id": "knob_lfo_rate",
+      "node_name": "Knob_13_LFO_Rate",
+      "parent_id": "synth_faceplate_frame",
+      "category": "knob",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        0.255,
+        0.095,
+        0.012
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_bakelite_knob",
+      "contract_ref_id": "knob_lfo_rate"
+    },
+    {
+      "entity_id": "knob_lfo_depth",
+      "node_name": "Knob_14_LFO_Depth",
+      "parent_id": "synth_faceplate_frame",
+      "category": "knob",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        0.345,
+        0.095,
+        0.012
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_bakelite_knob",
+      "contract_ref_id": "knob_lfo_depth"
+    },
+    {
+      "entity_id": "knob_dly_time",
+      "node_name": "Knob_15_DLY_Time",
+      "parent_id": "synth_faceplate_frame",
+      "category": "knob",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        0.255,
+        0.01,
+        0.012
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_bakelite_knob",
+      "contract_ref_id": "knob_dly_time"
+    },
+    {
+      "entity_id": "knob_dly_mix",
+      "node_name": "Knob_16_DLY_Mix",
+      "parent_id": "synth_faceplate_frame",
+      "category": "knob",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        0.345,
+        0.01,
+        0.012
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_bakelite_knob",
+      "contract_ref_id": "knob_dly_mix"
+    },
+    {
+      "entity_id": "socket_vco1_out",
+      "node_name": "Socket_01_VCO1_Out",
+      "parent_id": "synth_faceplate_frame",
+      "category": "patch_socket",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        -0.325,
+        -0.076,
+        0.008
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_chrome_fitting",
+      "contract_ref_id": "socket_vco1_out"
+    },
+    {
+      "entity_id": "socket_vco2_out",
+      "node_name": "Socket_02_VCO2_Out",
+      "parent_id": "synth_faceplate_frame",
+      "category": "patch_socket",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        -0.195,
+        -0.076,
+        0.008
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_chrome_fitting",
+      "contract_ref_id": "socket_vco2_out"
+    },
+    {
+      "entity_id": "socket_vcf_out",
+      "node_name": "Socket_03_VCF_Out",
+      "parent_id": "synth_faceplate_frame",
+      "category": "patch_socket",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        -0.065,
+        -0.076,
+        0.008
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_chrome_fitting",
+      "contract_ref_id": "socket_vcf_out"
+    },
+    {
+      "entity_id": "socket_env_out",
+      "node_name": "Socket_04_ENV_Out",
+      "parent_id": "synth_faceplate_frame",
+      "category": "patch_socket",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        0.065,
+        -0.076,
+        0.008
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_chrome_fitting",
+      "contract_ref_id": "socket_env_out"
+    },
+    {
+      "entity_id": "socket_lfo_out",
+      "node_name": "Socket_05_LFO_Out",
+      "parent_id": "synth_faceplate_frame",
+      "category": "patch_socket",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        0.195,
+        -0.076,
+        0.008
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_chrome_fitting",
+      "contract_ref_id": "socket_lfo_out"
+    },
+    {
+      "entity_id": "socket_phono_out",
+      "node_name": "Socket_06_Phono_Out",
+      "parent_id": "synth_faceplate_frame",
+      "category": "patch_socket",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        0.325,
+        -0.076,
+        0.008
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_chrome_fitting",
+      "contract_ref_id": "socket_phono_out"
+    },
+    {
+      "entity_id": "socket_vco_pitch_cv",
+      "node_name": "Socket_07_VCO_PitchCV",
+      "parent_id": "synth_faceplate_frame",
+      "category": "patch_socket",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        -0.325,
+        -0.128,
+        0.008
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_chrome_fitting",
+      "contract_ref_id": "socket_vco_pitch_cv"
+    },
+    {
+      "entity_id": "socket_vcf_in",
+      "node_name": "Socket_08_VCF_In",
+      "parent_id": "synth_faceplate_frame",
+      "category": "patch_socket",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        -0.195,
+        -0.128,
+        0.008
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_chrome_fitting",
+      "contract_ref_id": "socket_vcf_in"
+    },
+    {
+      "entity_id": "socket_vcf_cutoff_cv",
+      "node_name": "Socket_09_VCF_CutoffCV",
+      "parent_id": "synth_faceplate_frame",
+      "category": "patch_socket",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        -0.065,
+        -0.128,
+        0.008
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_chrome_fitting",
+      "contract_ref_id": "socket_vcf_cutoff_cv"
+    },
+    {
+      "entity_id": "socket_vca_in",
+      "node_name": "Socket_10_VCA_In",
+      "parent_id": "synth_faceplate_frame",
+      "category": "patch_socket",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        0.065,
+        -0.128,
+        0.008
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_chrome_fitting",
+      "contract_ref_id": "socket_vca_in"
+    },
+    {
+      "entity_id": "socket_vca_cv",
+      "node_name": "Socket_11_VCA_CV",
+      "parent_id": "synth_faceplate_frame",
+      "category": "patch_socket",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        0.195,
+        -0.128,
+        0.008
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_chrome_fitting",
+      "contract_ref_id": "socket_vca_cv"
+    },
+    {
+      "entity_id": "socket_dly_in",
+      "node_name": "Socket_12_DLY_In",
+      "parent_id": "synth_faceplate_frame",
+      "category": "patch_socket",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        0.325,
+        -0.128,
+        0.008
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_chrome_fitting",
+      "contract_ref_id": "socket_dly_in"
+    },
+    {
+      "entity_id": "key_01_c3",
+      "node_name": "Key_01_C3",
+      "parent_id": "synth_keybed_frame",
+      "category": "key",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        -0.336,
+        0.0,
+        -0.065
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_ivory_key",
+      "contract_ref_id": "key_01_c3"
+    },
+    {
+      "entity_id": "key_02_cs3",
+      "node_name": "Key_02_Cs3",
+      "parent_id": "synth_keybed_frame",
+      "category": "key",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        -0.3096,
+        0.012,
+        -0.065
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_ebony_key",
+      "contract_ref_id": "key_02_cs3"
+    },
+    {
+      "entity_id": "key_03_d3",
+      "node_name": "Key_03_D3",
+      "parent_id": "synth_keybed_frame",
+      "category": "key",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        -0.288,
+        0.0,
+        -0.065
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_ivory_key",
+      "contract_ref_id": "key_03_d3"
+    },
+    {
+      "entity_id": "key_04_ds3",
+      "node_name": "Key_04_Ds3",
+      "parent_id": "synth_keybed_frame",
+      "category": "key",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        -0.2616,
+        0.012,
+        -0.065
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_ebony_key",
+      "contract_ref_id": "key_04_ds3"
+    },
+    {
+      "entity_id": "key_05_e3",
+      "node_name": "Key_05_E3",
+      "parent_id": "synth_keybed_frame",
+      "category": "key",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        -0.24,
+        0.0,
+        -0.065
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_ivory_key",
+      "contract_ref_id": "key_05_e3"
+    },
+    {
+      "entity_id": "key_06_f3",
+      "node_name": "Key_06_F3",
+      "parent_id": "synth_keybed_frame",
+      "category": "key",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        -0.192,
+        0.0,
+        -0.065
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_ivory_key",
+      "contract_ref_id": "key_06_f3"
+    },
+    {
+      "entity_id": "key_07_fs3",
+      "node_name": "Key_07_Fs3",
+      "parent_id": "synth_keybed_frame",
+      "category": "key",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        -0.167,
+        0.012,
+        -0.065
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_ebony_key",
+      "contract_ref_id": "key_07_fs3"
+    },
+    {
+      "entity_id": "key_08_g3",
+      "node_name": "Key_08_G3",
+      "parent_id": "synth_keybed_frame",
+      "category": "key",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        -0.144,
+        0.0,
+        -0.065
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_ivory_key",
+      "contract_ref_id": "key_08_g3"
+    },
+    {
+      "entity_id": "key_09_gs3",
+      "node_name": "Key_09_Gs3",
+      "parent_id": "synth_keybed_frame",
+      "category": "key",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        -0.12,
+        0.012,
+        -0.065
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_ebony_key",
+      "contract_ref_id": "key_09_gs3"
+    },
+    {
+      "entity_id": "key_10_a3",
+      "node_name": "Key_10_A3",
+      "parent_id": "synth_keybed_frame",
+      "category": "key",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        -0.096,
+        0.0,
+        -0.065
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_ivory_key",
+      "contract_ref_id": "key_10_a3"
+    },
+    {
+      "entity_id": "key_11_as3",
+      "node_name": "Key_11_As3",
+      "parent_id": "synth_keybed_frame",
+      "category": "key",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        -0.073,
+        0.012,
+        -0.065
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_ebony_key",
+      "contract_ref_id": "key_11_as3"
+    },
+    {
+      "entity_id": "key_12_b3",
+      "node_name": "Key_12_B3",
+      "parent_id": "synth_keybed_frame",
+      "category": "key",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        -0.048,
+        0.0,
+        -0.065
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_ivory_key",
+      "contract_ref_id": "key_12_b3"
+    },
+    {
+      "entity_id": "key_13_c4",
+      "node_name": "Key_13_C4",
+      "parent_id": "synth_keybed_frame",
+      "category": "key",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        0.0,
+        0.0,
+        -0.065
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_ivory_key",
+      "contract_ref_id": "key_13_c4"
+    },
+    {
+      "entity_id": "key_14_cs4",
+      "node_name": "Key_14_Cs4",
+      "parent_id": "synth_keybed_frame",
+      "category": "key",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        0.0264,
+        0.012,
+        -0.065
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_ebony_key",
+      "contract_ref_id": "key_14_cs4"
+    },
+    {
+      "entity_id": "key_15_d4",
+      "node_name": "Key_15_D4",
+      "parent_id": "synth_keybed_frame",
+      "category": "key",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        0.048,
+        0.0,
+        -0.065
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_ivory_key",
+      "contract_ref_id": "key_15_d4"
+    },
+    {
+      "entity_id": "key_16_ds4",
+      "node_name": "Key_16_Ds4",
+      "parent_id": "synth_keybed_frame",
+      "category": "key",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        0.0744,
+        0.012,
+        -0.065
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_ebony_key",
+      "contract_ref_id": "key_16_ds4"
+    },
+    {
+      "entity_id": "key_17_e4",
+      "node_name": "Key_17_E4",
+      "parent_id": "synth_keybed_frame",
+      "category": "key",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        0.096,
+        0.0,
+        -0.065
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_ivory_key",
+      "contract_ref_id": "key_17_e4"
+    },
+    {
+      "entity_id": "key_18_f4",
+      "node_name": "Key_18_F4",
+      "parent_id": "synth_keybed_frame",
+      "category": "key",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        0.144,
+        0.0,
+        -0.065
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_ivory_key",
+      "contract_ref_id": "key_18_f4"
+    },
+    {
+      "entity_id": "key_19_fs4",
+      "node_name": "Key_19_Fs4",
+      "parent_id": "synth_keybed_frame",
+      "category": "key",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        0.169,
+        0.012,
+        -0.065
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_ebony_key",
+      "contract_ref_id": "key_19_fs4"
+    },
+    {
+      "entity_id": "key_20_g4",
+      "node_name": "Key_20_G4",
+      "parent_id": "synth_keybed_frame",
+      "category": "key",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        0.192,
+        0.0,
+        -0.065
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_ivory_key",
+      "contract_ref_id": "key_20_g4"
+    },
+    {
+      "entity_id": "key_21_gs4",
+      "node_name": "Key_21_Gs4",
+      "parent_id": "synth_keybed_frame",
+      "category": "key",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        0.216,
+        0.012,
+        -0.065
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_ebony_key",
+      "contract_ref_id": "key_21_gs4"
+    },
+    {
+      "entity_id": "key_22_a4",
+      "node_name": "Key_22_A4",
+      "parent_id": "synth_keybed_frame",
+      "category": "key",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        0.24,
+        0.0,
+        -0.065
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_ivory_key",
+      "contract_ref_id": "key_22_a4"
+    },
+    {
+      "entity_id": "key_23_as4",
+      "node_name": "Key_23_As4",
+      "parent_id": "synth_keybed_frame",
+      "category": "key",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        0.263,
+        0.012,
+        -0.065
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_ebony_key",
+      "contract_ref_id": "key_23_as4"
+    },
+    {
+      "entity_id": "key_24_b4",
+      "node_name": "Key_24_B4",
+      "parent_id": "synth_keybed_frame",
+      "category": "key",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        0.288,
+        0.0,
+        -0.065
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_ivory_key",
+      "contract_ref_id": "key_24_b4"
+    },
+    {
+      "entity_id": "key_25_c5",
+      "node_name": "Key_25_C5",
+      "parent_id": "synth_keybed_frame",
+      "category": "key",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        0.336,
+        0.0,
+        -0.065
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_ivory_key",
+      "contract_ref_id": "key_25_c5"
+    },
+    {
+      "entity_id": "turntable_root",
+      "node_name": "Turntable_Root",
+      "parent_id": null,
+      "category": "turntable_cabinet",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        0.44,
+        0.0,
+        0.05
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_walnut_cabinet"
+    },
+    {
+      "entity_id": "turntable_platter",
+      "node_name": "Turntable_Platter",
+      "parent_id": "turntable_root",
+      "category": "turntable_platter",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        -0.035,
+        0.072,
+        0.0
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_vinyl_record"
+    },
+    {
+      "entity_id": "tonearm_gimbal",
+      "node_name": "Tonearm_Gimbal",
+      "parent_id": "turntable_root",
+      "category": "tonearm",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        0.14,
+        0.086,
+        -0.095
+      ],
+      "rotation_euler_deg": [
+        5.5,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_chrome_fitting"
+    },
+    {
+      "entity_id": "tonearm_headshell",
+      "node_name": "Tonearm_Headshell",
+      "parent_id": "tonearm_gimbal",
+      "category": "tonearm_cartridge",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        -0.052,
+        -0.008,
+        0.195
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        22.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_bakelite_knob"
+    },
+    {
+      "entity_id": "turntable_speed_switch",
+      "node_name": "Turntable_SpeedSwitch",
+      "parent_id": "turntable_root",
+      "category": "turntable_control",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        -0.125,
+        0.066,
+        0.135
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_chrome_fitting"
+    },
+    {
+      "entity_id": "turntable_start_stop",
+      "node_name": "Turntable_StartStop",
+      "parent_id": "turntable_root",
+      "category": "turntable_control",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        -0.168,
+        0.066,
+        0.135
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_chrome_fitting"
+    },
+    {
+      "entity_id": "vinyl_sleeve_stand",
+      "node_name": "Vinyl_Sleeve_Stand",
+      "parent_id": "turntable_root",
+      "category": "prop",
+      "coord_tag": "threejs_local_m",
+      "position_m": [
+        0.02,
+        0.185,
+        -0.195
+      ],
+      "rotation_euler_deg": [
+        -12.0,
+        -8.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_id": "mat_record_sleeve"
+    }
+  ]
+}

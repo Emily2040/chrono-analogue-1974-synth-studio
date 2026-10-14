@@ -1,0 +1,1215 @@
+{
+  "schema_version": "1.0.0",
+  "project_id": "modular-synth-turntable-studio-1970s",
+  "units": {
+    "source_unit_m": 0.1,
+    "runtime_unit_m": 1.0,
+    "rack_width_m": 0.8,
+    "rack_width_source_units": 8.0,
+    "rack_backward_tilt_deg": 15.0
+  },
+  "dimensions": {
+    "rack_width_m": 0.8,
+    "rack_height_m": 0.42,
+    "rack_depth_m": 0.38,
+    "keyboard_bed_depth_m": 0.18,
+    "turntable_plinth_width_m": 0.42,
+    "turntable_plinth_depth_m": 0.35,
+    "turntable_platter_diameter_m": 0.3
+  },
+  "axis_conversion": {
+    "blender_axes": {
+      "right": "+X",
+      "back": "+Y",
+      "forward_to_operator": "-Y",
+      "up": "+Z"
+    },
+    "threejs_axes": {
+      "right": "+X",
+      "up": "+Y",
+      "forward_to_operator": "+Z"
+    },
+    "gltf_export_yup": true,
+    "position_mapping": "three_x = blender_x; three_y = blender_z; three_z = -blender_y",
+    "rotation_mapping": "Faceplate tilted -15 deg around +X in Three.js (+15 deg in Blender); knobs childed to Synth_Faceplate_Frame rotate around local Z axis; keys childed to Synth_Keybed_Frame rotate around local +X rear hinge axis; platter rotates around local +Y axis."
+  },
+  "knobs": [
+    {
+      "id": "knob_vco1_pitch",
+      "node_name": "Knob_01_VCO1_Pitch",
+      "module": "VCO",
+      "label": "VCO 1 TUNE",
+      "parameter": "vco1.pitchSemitones",
+      "unit": "st",
+      "min": -24.0,
+      "max": 24.0,
+      "default": 0.0,
+      "scale": "linear",
+      "smoothing_tc_s": 0.015,
+      "pivot_axis_threejs": "Z",
+      "angle_min_deg": -135.0,
+      "angle_max_deg": 135.0,
+      "panel_local_pos_m": [
+        -0.345,
+        0.095,
+        0.012
+      ]
+    },
+    {
+      "id": "knob_vco1_wave",
+      "node_name": "Knob_02_VCO1_Wave",
+      "module": "VCO",
+      "label": "VCO 1 WAVE",
+      "parameter": "vco1.waveformMorph",
+      "unit": "shape",
+      "min": 0.0,
+      "max": 1.0,
+      "default": 0.67,
+      "scale": "linear",
+      "smoothing_tc_s": 0.02,
+      "pivot_axis_threejs": "Z",
+      "angle_min_deg": -135.0,
+      "angle_max_deg": 135.0,
+      "panel_local_pos_m": [
+        -0.245,
+        0.095,
+        0.012
+      ]
+    },
+    {
+      "id": "knob_vco2_detune",
+      "node_name": "Knob_03_VCO2_Detune",
+      "module": "VCO",
+      "label": "VCO 2 DETUNE",
+      "parameter": "vco2.detuneCents",
+      "unit": "ct",
+      "min": -1200.0,
+      "max": 1200.0,
+      "default": 8.0,
+      "scale": "linear",
+      "smoothing_tc_s": 0.015,
+      "pivot_axis_threejs": "Z",
+      "angle_min_deg": -135.0,
+      "angle_max_deg": 135.0,
+      "panel_local_pos_m": [
+        -0.345,
+        0.01,
+        0.012
+      ]
+    },
+    {
+      "id": "knob_vco2_mix",
+      "node_name": "Knob_04_VCO2_Mix",
+      "module": "VCO",
+      "label": "VCO 2 / SUB MIX",
+      "parameter": "vco2.subMix",
+      "unit": "lvl",
+      "min": 0.0,
+      "max": 1.0,
+      "default": 0.45,
+      "scale": "linear",
+      "smoothing_tc_s": 0.02,
+      "pivot_axis_threejs": "Z",
+      "angle_min_deg": -135.0,
+      "angle_max_deg": 135.0,
+      "panel_local_pos_m": [
+        -0.245,
+        0.01,
+        0.012
+      ]
+    },
+    {
+      "id": "knob_vcf_cutoff",
+      "node_name": "Knob_05_VCF_Cutoff",
+      "module": "VCF",
+      "label": "CUTOFF FREQ",
+      "parameter": "vcf.cutoffHz",
+      "unit": "Hz",
+      "min": 40.0,
+      "max": 16000.0,
+      "default": 1200.0,
+      "scale": "log",
+      "smoothing_tc_s": 0.015,
+      "pivot_axis_threejs": "Z",
+      "angle_min_deg": -135.0,
+      "angle_max_deg": 135.0,
+      "panel_local_pos_m": [
+        -0.145,
+        0.095,
+        0.012
+      ]
+    },
+    {
+      "id": "knob_vcf_resonance",
+      "node_name": "Knob_06_VCF_Resonance",
+      "module": "VCF",
+      "label": "RESONANCE",
+      "parameter": "vcf.resonanceQ",
+      "unit": "Q",
+      "min": 0.7,
+      "max": 18.0,
+      "default": 2.8,
+      "scale": "linear",
+      "smoothing_tc_s": 0.015,
+      "pivot_axis_threejs": "Z",
+      "angle_min_deg": -135.0,
+      "angle_max_deg": 135.0,
+      "panel_local_pos_m": [
+        -0.045,
+        0.095,
+        0.012
+      ]
+    },
+    {
+      "id": "knob_vcf_env_amt",
+      "node_name": "Knob_07_VCF_EnvAmt",
+      "module": "VCF",
+      "label": "ENV MOD DEPTH",
+      "parameter": "vcf.envModCents",
+      "unit": "ct",
+      "min": -4800.0,
+      "max": 4800.0,
+      "default": 2200.0,
+      "scale": "linear",
+      "smoothing_tc_s": 0.02,
+      "pivot_axis_threejs": "Z",
+      "angle_min_deg": -135.0,
+      "angle_max_deg": 135.0,
+      "panel_local_pos_m": [
+        -0.145,
+        0.01,
+        0.012
+      ]
+    },
+    {
+      "id": "knob_vcf_drive",
+      "node_name": "Knob_08_VCF_Drive",
+      "module": "VCF",
+      "label": "LADDER DRIVE",
+      "parameter": "vcf.drive",
+      "unit": "x",
+      "min": 1.0,
+      "max": 5.0,
+      "default": 1.5,
+      "scale": "linear",
+      "smoothing_tc_s": 0.02,
+      "pivot_axis_threejs": "Z",
+      "angle_min_deg": -135.0,
+      "angle_max_deg": 135.0,
+      "panel_local_pos_m": [
+        -0.045,
+        0.01,
+        0.012
+      ]
+    },
+    {
+      "id": "knob_env_attack",
+      "node_name": "Knob_09_ENV_Attack",
+      "module": "ENV",
+      "label": "ATTACK",
+      "parameter": "env.attackS",
+      "unit": "s",
+      "min": 0.003,
+      "max": 2.5,
+      "default": 0.015,
+      "scale": "log",
+      "smoothing_tc_s": 0.01,
+      "pivot_axis_threejs": "Z",
+      "angle_min_deg": -135.0,
+      "angle_max_deg": 135.0,
+      "panel_local_pos_m": [
+        0.055,
+        0.095,
+        0.012
+      ]
+    },
+    {
+      "id": "knob_env_decay",
+      "node_name": "Knob_10_ENV_Decay",
+      "module": "ENV",
+      "label": "DECAY",
+      "parameter": "env.decayS",
+      "unit": "s",
+      "min": 0.02,
+      "max": 3.0,
+      "default": 0.35,
+      "scale": "log",
+      "smoothing_tc_s": 0.01,
+      "pivot_axis_threejs": "Z",
+      "angle_min_deg": -135.0,
+      "angle_max_deg": 135.0,
+      "panel_local_pos_m": [
+        0.155,
+        0.095,
+        0.012
+      ]
+    },
+    {
+      "id": "knob_env_sustain",
+      "node_name": "Knob_11_ENV_Sustain",
+      "module": "ENV",
+      "label": "SUSTAIN",
+      "parameter": "env.sustainLevel",
+      "unit": "lvl",
+      "min": 0.0,
+      "max": 1.0,
+      "default": 0.6,
+      "scale": "linear",
+      "smoothing_tc_s": 0.01,
+      "pivot_axis_threejs": "Z",
+      "angle_min_deg": -135.0,
+      "angle_max_deg": 135.0,
+      "panel_local_pos_m": [
+        0.055,
+        0.01,
+        0.012
+      ]
+    },
+    {
+      "id": "knob_env_release",
+      "node_name": "Knob_12_ENV_Release",
+      "module": "ENV",
+      "label": "RELEASE",
+      "parameter": "env.releaseS",
+      "unit": "s",
+      "min": 0.01,
+      "max": 4.0,
+      "default": 0.45,
+      "scale": "log",
+      "smoothing_tc_s": 0.01,
+      "pivot_axis_threejs": "Z",
+      "angle_min_deg": -135.0,
+      "angle_max_deg": 135.0,
+      "panel_local_pos_m": [
+        0.155,
+        0.01,
+        0.012
+      ]
+    },
+    {
+      "id": "knob_lfo_rate",
+      "node_name": "Knob_13_LFO_Rate",
+      "module": "LFO_DELAY",
+      "label": "LFO RATE",
+      "parameter": "lfo.rateHz",
+      "unit": "Hz",
+      "min": 0.1,
+      "max": 20.0,
+      "default": 3.5,
+      "scale": "log",
+      "smoothing_tc_s": 0.02,
+      "pivot_axis_threejs": "Z",
+      "angle_min_deg": -135.0,
+      "angle_max_deg": 135.0,
+      "panel_local_pos_m": [
+        0.255,
+        0.095,
+        0.012
+      ]
+    },
+    {
+      "id": "knob_lfo_depth",
+      "node_name": "Knob_14_LFO_Depth",
+      "module": "LFO_DELAY",
+      "label": "LFO DEPTH",
+      "parameter": "lfo.depth",
+      "unit": "lvl",
+      "min": 0.0,
+      "max": 1.0,
+      "default": 0.2,
+      "scale": "linear",
+      "smoothing_tc_s": 0.02,
+      "pivot_axis_threejs": "Z",
+      "angle_min_deg": -135.0,
+      "angle_max_deg": 135.0,
+      "panel_local_pos_m": [
+        0.345,
+        0.095,
+        0.012
+      ]
+    },
+    {
+      "id": "knob_dly_time",
+      "node_name": "Knob_15_DLY_Time",
+      "module": "LFO_DELAY",
+      "label": "DELAY TIME",
+      "parameter": "delay.timeS",
+      "unit": "s",
+      "min": 0.04,
+      "max": 0.85,
+      "default": 0.3,
+      "scale": "linear",
+      "smoothing_tc_s": 0.035,
+      "pivot_axis_threejs": "Z",
+      "angle_min_deg": -135.0,
+      "angle_max_deg": 135.0,
+      "panel_local_pos_m": [
+        0.255,
+        0.01,
+        0.012
+      ]
+    },
+    {
+      "id": "knob_dly_mix",
+      "node_name": "Knob_16_DLY_Mix",
+      "module": "LFO_DELAY",
+      "label": "DELAY MIX",
+      "parameter": "delay.wetMix",
+      "unit": "lvl",
+      "min": 0.0,
+      "max": 0.85,
+      "default": 0.25,
+      "scale": "linear",
+      "smoothing_tc_s": 0.02,
+      "pivot_axis_threejs": "Z",
+      "angle_min_deg": -135.0,
+      "angle_max_deg": 135.0,
+      "panel_local_pos_m": [
+        0.345,
+        0.01,
+        0.012
+      ]
+    }
+  ],
+  "patch_sockets": [
+    {
+      "id": "socket_vco1_out",
+      "node_name": "Socket_01_VCO1_Out",
+      "module": "VCO",
+      "label": "VCO 1 OUT",
+      "direction": "output",
+      "port_type": "audio_out",
+      "signal_range": "-1.0 to +1.0 audio",
+      "web_audio_node": "vco1OutGain",
+      "panel_local_pos_m": [
+        -0.325,
+        -0.076,
+        0.008
+      ]
+    },
+    {
+      "id": "socket_vco2_out",
+      "node_name": "Socket_02_VCO2_Out",
+      "module": "VCO",
+      "label": "VCO 2 OUT",
+      "direction": "output",
+      "port_type": "audio_out",
+      "signal_range": "-1.0 to +1.0 audio",
+      "web_audio_node": "vco2OutGain",
+      "panel_local_pos_m": [
+        -0.195,
+        -0.076,
+        0.008
+      ]
+    },
+    {
+      "id": "socket_vcf_out",
+      "node_name": "Socket_03_VCF_Out",
+      "module": "VCF",
+      "label": "VCF OUT",
+      "direction": "output",
+      "port_type": "audio_out",
+      "signal_range": "-1.0 to +1.0 audio",
+      "web_audio_node": "vcfOutGain",
+      "panel_local_pos_m": [
+        -0.065,
+        -0.076,
+        0.008
+      ]
+    },
+    {
+      "id": "socket_env_out",
+      "node_name": "Socket_04_ENV_Out",
+      "module": "ENV",
+      "label": "ENV CV OUT",
+      "direction": "output",
+      "port_type": "cv_out",
+      "signal_range": "0.0 to +1.0 CV",
+      "web_audio_node": "envCvOutGain",
+      "panel_local_pos_m": [
+        0.065,
+        -0.076,
+        0.008
+      ]
+    },
+    {
+      "id": "socket_lfo_out",
+      "node_name": "Socket_05_LFO_Out",
+      "module": "LFO_DELAY",
+      "label": "LFO CV OUT",
+      "direction": "output",
+      "port_type": "cv_out",
+      "signal_range": "-1.0 to +1.0 CV",
+      "web_audio_node": "lfoCvOutGain",
+      "panel_local_pos_m": [
+        0.195,
+        -0.076,
+        0.008
+      ]
+    },
+    {
+      "id": "socket_phono_out",
+      "node_name": "Socket_06_Phono_Out",
+      "module": "LFO_DELAY",
+      "label": "PHONO OUT",
+      "direction": "output",
+      "port_type": "audio_out",
+      "signal_range": "-1.0 to +1.0 audio",
+      "web_audio_node": "phonoPreampOutGain",
+      "panel_local_pos_m": [
+        0.325,
+        -0.076,
+        0.008
+      ]
+    },
+    {
+      "id": "socket_vco_pitch_cv",
+      "node_name": "Socket_07_VCO_PitchCV",
+      "module": "VCO",
+      "label": "VCO PITCH CV",
+      "direction": "input",
+      "port_type": "cv_in",
+      "signal_range": "CV -> +/-1200 cents",
+      "web_audio_node": "vcoPitchCvInGain",
+      "panel_local_pos_m": [
+        -0.325,
+        -0.128,
+        0.008
+      ]
+    },
+    {
+      "id": "socket_vcf_in",
+      "node_name": "Socket_08_VCF_In",
+      "module": "VCF",
+      "label": "VCF AUDIO IN",
+      "direction": "input",
+      "port_type": "audio_in",
+      "signal_range": "Audio -> Ladder Filter In",
+      "web_audio_node": "vcfAudioInGain",
+      "panel_local_pos_m": [
+        -0.195,
+        -0.128,
+        0.008
+      ]
+    },
+    {
+      "id": "socket_vcf_cutoff_cv",
+      "node_name": "Socket_09_VCF_CutoffCV",
+      "module": "VCF",
+      "label": "VCF CUTOFF CV",
+      "direction": "input",
+      "port_type": "cv_in",
+      "signal_range": "CV -> +/-3600 cents",
+      "web_audio_node": "vcfCutoffCvInGain",
+      "panel_local_pos_m": [
+        -0.065,
+        -0.128,
+        0.008
+      ]
+    },
+    {
+      "id": "socket_vca_in",
+      "node_name": "Socket_10_VCA_In",
+      "module": "ENV",
+      "label": "VCA AUDIO IN",
+      "direction": "input",
+      "port_type": "audio_in",
+      "signal_range": "Audio -> Master VCA In",
+      "web_audio_node": "vcaAudioInGain",
+      "panel_local_pos_m": [
+        0.065,
+        -0.128,
+        0.008
+      ]
+    },
+    {
+      "id": "socket_vca_cv",
+      "node_name": "Socket_11_VCA_CV",
+      "module": "ENV",
+      "label": "VCA GAIN CV",
+      "direction": "input",
+      "port_type": "cv_in",
+      "signal_range": "CV -> VCA Gain Mod",
+      "web_audio_node": "vcaCvInGain",
+      "panel_local_pos_m": [
+        0.195,
+        -0.128,
+        0.008
+      ]
+    },
+    {
+      "id": "socket_dly_in",
+      "node_name": "Socket_12_DLY_In",
+      "module": "LFO_DELAY",
+      "label": "DELAY IN",
+      "direction": "input",
+      "port_type": "audio_in",
+      "signal_range": "Audio -> BBD Delay In",
+      "web_audio_node": "delayAudioInGain",
+      "panel_local_pos_m": [
+        0.325,
+        -0.128,
+        0.008
+      ]
+    }
+  ],
+  "patch_rules": {
+    "allowed_port_pairs": [
+      {
+        "from": "audio_out",
+        "to": "audio_in",
+        "description": "Standard audio signal routing"
+      },
+      {
+        "from": "cv_out",
+        "to": "cv_in",
+        "description": "Control voltage modulation routing"
+      },
+      {
+        "from": "audio_out",
+        "to": "cv_in",
+        "description": "Audio-rate FM / filter modulation"
+      }
+    ],
+    "rejected_conditions": [
+      {
+        "code": "self_connection",
+        "rule": "source_id == target_id",
+        "message": "Cannot patch a socket to itself."
+      },
+      {
+        "code": "unsafe_output_to_output",
+        "rule": "source.direction == 'output' and target.direction == 'output'",
+        "message": "Unsafe routing: cannot tie two low-impedance outputs together."
+      },
+      {
+        "code": "invalid_input_to_input",
+        "rule": "source.direction == 'input' and target.direction == 'input'",
+        "message": "Invalid routing: cannot patch two inputs together without a signal source."
+      },
+      {
+        "code": "dc_offset_cv_to_audio_in",
+        "rule": "source.port_type == 'cv_out' and target.port_type == 'audio_in'",
+        "message": "Rejected: unipolar/low-frequency CV into AC audio input introduces DC thump."
+      },
+      {
+        "code": "unsafe_feedback_loop",
+        "rule": "source_id == 'socket_vcf_out' and target_id == 'socket_vcf_in'",
+        "message": "Unsafe direct filter feedback loop rejected to prevent runaway self-oscillation clipping."
+      }
+    ],
+    "default_normalled_connections": [
+      {
+        "from": "socket_vcf_out",
+        "to": "socket_vca_in",
+        "note": "VCF output is normalled to VCA input unless overridden, while VCO1->VCF requires an explicit patch cable for the signature patch interaction or preset load."
+      }
+    ],
+    "cable_clearance_min_m": 0.012
+  },
+  "keyboard": {
+    "key_count": 25,
+    "range": "C3-C5",
+    "hinge_axis_threejs": "X",
+    "travel_angle_deg": 4.5,
+    "spring_return_time_s": 0.065,
+    "keys": [
+      {
+        "id": "key_01_c3",
+        "node_name": "Key_01_C3",
+        "note_name": "C3",
+        "midi_note": 48,
+        "frequency_hz": 130.813,
+        "is_sharp": false,
+        "qwerty_binding": "Z",
+        "keybed_local_pos_m": [
+          -0.336,
+          0.0,
+          -0.065
+        ]
+      },
+      {
+        "id": "key_02_cs3",
+        "node_name": "Key_02_Cs3",
+        "note_name": "C#3",
+        "midi_note": 49,
+        "frequency_hz": 138.591,
+        "is_sharp": true,
+        "qwerty_binding": "S",
+        "keybed_local_pos_m": [
+          -0.3096,
+          0.012,
+          -0.065
+        ]
+      },
+      {
+        "id": "key_03_d3",
+        "node_name": "Key_03_D3",
+        "note_name": "D3",
+        "midi_note": 50,
+        "frequency_hz": 146.832,
+        "is_sharp": false,
+        "qwerty_binding": "X",
+        "keybed_local_pos_m": [
+          -0.288,
+          0.0,
+          -0.065
+        ]
+      },
+      {
+        "id": "key_04_ds3",
+        "node_name": "Key_04_Ds3",
+        "note_name": "D#3",
+        "midi_note": 51,
+        "frequency_hz": 155.563,
+        "is_sharp": true,
+        "qwerty_binding": "D",
+        "keybed_local_pos_m": [
+          -0.2616,
+          0.012,
+          -0.065
+        ]
+      },
+      {
+        "id": "key_05_e3",
+        "node_name": "Key_05_E3",
+        "note_name": "E3",
+        "midi_note": 52,
+        "frequency_hz": 164.814,
+        "is_sharp": false,
+        "qwerty_binding": "C",
+        "keybed_local_pos_m": [
+          -0.24,
+          0.0,
+          -0.065
+        ]
+      },
+      {
+        "id": "key_06_f3",
+        "node_name": "Key_06_F3",
+        "note_name": "F3",
+        "midi_note": 53,
+        "frequency_hz": 174.614,
+        "is_sharp": false,
+        "qwerty_binding": "V",
+        "keybed_local_pos_m": [
+          -0.192,
+          0.0,
+          -0.065
+        ]
+      },
+      {
+        "id": "key_07_fs3",
+        "node_name": "Key_07_Fs3",
+        "note_name": "F#3",
+        "midi_note": 54,
+        "frequency_hz": 184.997,
+        "is_sharp": true,
+        "qwerty_binding": "G",
+        "keybed_local_pos_m": [
+          -0.167,
+          0.012,
+          -0.065
+        ]
+      },
+      {
+        "id": "key_08_g3",
+        "node_name": "Key_08_G3",
+        "note_name": "G3",
+        "midi_note": 55,
+        "frequency_hz": 195.998,
+        "is_sharp": false,
+        "qwerty_binding": "B",
+        "keybed_local_pos_m": [
+          -0.144,
+          0.0,
+          -0.065
+        ]
+      },
+      {
+        "id": "key_09_gs3",
+        "node_name": "Key_09_Gs3",
+        "note_name": "G#3",
+        "midi_note": 56,
+        "frequency_hz": 207.652,
+        "is_sharp": true,
+        "qwerty_binding": "H",
+        "keybed_local_pos_m": [
+          -0.12,
+          0.012,
+          -0.065
+        ]
+      },
+      {
+        "id": "key_10_a3",
+        "node_name": "Key_10_A3",
+        "note_name": "A3",
+        "midi_note": 57,
+        "frequency_hz": 220.0,
+        "is_sharp": false,
+        "qwerty_binding": "N",
+        "keybed_local_pos_m": [
+          -0.096,
+          0.0,
+          -0.065
+        ]
+      },
+      {
+        "id": "key_11_as3",
+        "node_name": "Key_11_As3",
+        "note_name": "A#3",
+        "midi_note": 58,
+        "frequency_hz": 233.082,
+        "is_sharp": true,
+        "qwerty_binding": "J",
+        "keybed_local_pos_m": [
+          -0.073,
+          0.012,
+          -0.065
+        ]
+      },
+      {
+        "id": "key_12_b3",
+        "node_name": "Key_12_B3",
+        "note_name": "B3",
+        "midi_note": 59,
+        "frequency_hz": 246.942,
+        "is_sharp": false,
+        "qwerty_binding": "M",
+        "keybed_local_pos_m": [
+          -0.048,
+          0.0,
+          -0.065
+        ]
+      },
+      {
+        "id": "key_13_c4",
+        "node_name": "Key_13_C4",
+        "note_name": "C4",
+        "midi_note": 60,
+        "frequency_hz": 261.626,
+        "is_sharp": false,
+        "qwerty_binding": "Q",
+        "keybed_local_pos_m": [
+          0.0,
+          0.0,
+          -0.065
+        ]
+      },
+      {
+        "id": "key_14_cs4",
+        "node_name": "Key_14_Cs4",
+        "note_name": "C#4",
+        "midi_note": 61,
+        "frequency_hz": 277.183,
+        "is_sharp": true,
+        "qwerty_binding": "2",
+        "keybed_local_pos_m": [
+          0.0264,
+          0.012,
+          -0.065
+        ]
+      },
+      {
+        "id": "key_15_d4",
+        "node_name": "Key_15_D4",
+        "note_name": "D4",
+        "midi_note": 62,
+        "frequency_hz": 293.665,
+        "is_sharp": false,
+        "qwerty_binding": "W",
+        "keybed_local_pos_m": [
+          0.048,
+          0.0,
+          -0.065
+        ]
+      },
+      {
+        "id": "key_16_ds4",
+        "node_name": "Key_16_Ds4",
+        "note_name": "D#4",
+        "midi_note": 63,
+        "frequency_hz": 311.127,
+        "is_sharp": true,
+        "qwerty_binding": "3",
+        "keybed_local_pos_m": [
+          0.0744,
+          0.012,
+          -0.065
+        ]
+      },
+      {
+        "id": "key_17_e4",
+        "node_name": "Key_17_E4",
+        "note_name": "E4",
+        "midi_note": 64,
+        "frequency_hz": 329.628,
+        "is_sharp": false,
+        "qwerty_binding": "E",
+        "keybed_local_pos_m": [
+          0.096,
+          0.0,
+          -0.065
+        ]
+      },
+      {
+        "id": "key_18_f4",
+        "node_name": "Key_18_F4",
+        "note_name": "F4",
+        "midi_note": 65,
+        "frequency_hz": 349.228,
+        "is_sharp": false,
+        "qwerty_binding": "R",
+        "keybed_local_pos_m": [
+          0.144,
+          0.0,
+          -0.065
+        ]
+      },
+      {
+        "id": "key_19_fs4",
+        "node_name": "Key_19_Fs4",
+        "note_name": "F#4",
+        "midi_note": 66,
+        "frequency_hz": 369.994,
+        "is_sharp": true,
+        "qwerty_binding": "5",
+        "keybed_local_pos_m": [
+          0.169,
+          0.012,
+          -0.065
+        ]
+      },
+      {
+        "id": "key_20_g4",
+        "node_name": "Key_20_G4",
+        "note_name": "G4",
+        "midi_note": 67,
+        "frequency_hz": 391.995,
+        "is_sharp": false,
+        "qwerty_binding": "T",
+        "keybed_local_pos_m": [
+          0.192,
+          0.0,
+          -0.065
+        ]
+      },
+      {
+        "id": "key_21_gs4",
+        "node_name": "Key_21_Gs4",
+        "note_name": "G#4",
+        "midi_note": 68,
+        "frequency_hz": 415.305,
+        "is_sharp": true,
+        "qwerty_binding": "6",
+        "keybed_local_pos_m": [
+          0.216,
+          0.012,
+          -0.065
+        ]
+      },
+      {
+        "id": "key_22_a4",
+        "node_name": "Key_22_A4",
+        "note_name": "A4",
+        "midi_note": 69,
+        "frequency_hz": 440.0,
+        "is_sharp": false,
+        "qwerty_binding": "Y",
+        "keybed_local_pos_m": [
+          0.24,
+          0.0,
+          -0.065
+        ]
+      },
+      {
+        "id": "key_23_as4",
+        "node_name": "Key_23_As4",
+        "note_name": "A#4",
+        "midi_note": 70,
+        "frequency_hz": 466.164,
+        "is_sharp": true,
+        "qwerty_binding": "7",
+        "keybed_local_pos_m": [
+          0.263,
+          0.012,
+          -0.065
+        ]
+      },
+      {
+        "id": "key_24_b4",
+        "node_name": "Key_24_B4",
+        "note_name": "B4",
+        "midi_note": 71,
+        "frequency_hz": 493.883,
+        "is_sharp": false,
+        "qwerty_binding": "U",
+        "keybed_local_pos_m": [
+          0.288,
+          0.0,
+          -0.065
+        ]
+      },
+      {
+        "id": "key_25_c5",
+        "node_name": "Key_25_C5",
+        "note_name": "C5",
+        "midi_note": 72,
+        "frequency_hz": 523.251,
+        "is_sharp": false,
+        "qwerty_binding": "I",
+        "keybed_local_pos_m": [
+          0.336,
+          0.0,
+          -0.065
+        ]
+      }
+    ]
+  },
+  "turntable": {
+    "platter_node": {
+      "node_name": "Turntable_Platter",
+      "pivot_axis_threejs": "Y",
+      "spin_direction": "clockwise_from_top (-Y rotation in Three.js)",
+      "local_pos_m": [
+        -0.035,
+        0.072,
+        0.0
+      ]
+    },
+    "tonearm_gimbal_node": {
+      "node_name": "Tonearm_Gimbal",
+      "yaw_axis_threejs": "Y",
+      "pitch_axis_threejs": "X",
+      "rest_yaw_deg": 0.0,
+      "outer_groove_yaw_deg": -18.5,
+      "inner_groove_yaw_deg": -33.5,
+      "raised_pitch_deg": 5.5,
+      "lowered_pitch_deg": 0.0,
+      "local_pos_m": [
+        0.14,
+        0.086,
+        -0.095
+      ]
+    },
+    "tonearm_headshell_node": {
+      "node_name": "Tonearm_Headshell",
+      "stylus_contact_height_m": 0.078
+    },
+    "speed_switch_node": {
+      "node_name": "Turntable_SpeedSwitch",
+      "local_pos_m": [
+        -0.125,
+        0.066,
+        0.135
+      ]
+    },
+    "start_stop_node": {
+      "node_name": "Turntable_StartStop",
+      "local_pos_m": [
+        -0.168,
+        0.066,
+        0.135
+      ]
+    },
+    "native_rpm": 33.333333,
+    "rpm_presets": {
+      "33": {
+        "rpm": 33.333333,
+        "angular_velocity_rad_s": 3.49066,
+        "playback_rate": 1.0
+      },
+      "45": {
+        "rpm": 45.0,
+        "angular_velocity_rad_s": 4.71239,
+        "playback_rate": 1.35
+      }
+    },
+    "states": [
+      "stopped_rest",
+      "cued_spinning",
+      "playing_33",
+      "playing_45",
+      "paused_on_record"
+    ]
+  },
+  "audio_graph": {
+    "require_user_gesture": true,
+    "sample_rate_hz": 44100,
+    "max_safe_peak": 0.95,
+    "soft_clipper_enabled": true,
+    "presets": [
+      {
+        "id": "signature_unpatched",
+        "name": "00. Ready to Patch (Connect VCO 1 -> VCF IN)",
+        "cables": [
+          [
+            "socket_vcf_out",
+            "socket_vca_in"
+          ],
+          [
+            "socket_env_out",
+            "socket_vcf_cutoff_cv"
+          ]
+        ],
+        "knobs": {
+          "knob_vcf_cutoff": 650.0,
+          "knob_vcf_resonance": 3.5,
+          "knob_vcf_env_amt": 1800.0
+        }
+      },
+      {
+        "id": "signature_patched_lead",
+        "name": "01. Signature 1974 Ladder Lead (VCO 1 -> VCF)",
+        "cables": [
+          [
+            "socket_vco1_out",
+            "socket_vcf_in"
+          ],
+          [
+            "socket_vco2_out",
+            "socket_vcf_in"
+          ],
+          [
+            "socket_vcf_out",
+            "socket_vca_in"
+          ],
+          [
+            "socket_env_out",
+            "socket_vcf_cutoff_cv"
+          ],
+          [
+            "socket_vcf_out",
+            "socket_dly_in"
+          ]
+        ],
+        "knobs": {
+          "knob_vco1_pitch": 0.0,
+          "knob_vco1_wave": 0.72,
+          "knob_vco2_detune": 9.0,
+          "knob_vco2_mix": 0.55,
+          "knob_vcf_cutoff": 1400.0,
+          "knob_vcf_resonance": 4.2,
+          "knob_vcf_env_amt": 2400.0,
+          "knob_vcf_drive": 1.8,
+          "knob_env_attack": 0.012,
+          "knob_env_decay": 0.42,
+          "knob_env_sustain": 0.55,
+          "knob_env_release": 0.48,
+          "knob_dly_time": 0.32,
+          "knob_dly_mix": 0.28
+        }
+      },
+      {
+        "id": "velvet_bass_pluck",
+        "name": "02. Warm Walnut Sub Bass",
+        "cables": [
+          [
+            "socket_vco1_out",
+            "socket_vcf_in"
+          ],
+          [
+            "socket_vco2_out",
+            "socket_vcf_in"
+          ],
+          [
+            "socket_vcf_out",
+            "socket_vca_in"
+          ],
+          [
+            "socket_env_out",
+            "socket_vcf_cutoff_cv"
+          ]
+        ],
+        "knobs": {
+          "knob_vco1_pitch": -12.0,
+          "knob_vco1_wave": 0.65,
+          "knob_vco2_detune": 5.0,
+          "knob_vco2_mix": 0.8,
+          "knob_vcf_cutoff": 260.0,
+          "knob_vcf_resonance": 5.5,
+          "knob_vcf_env_amt": 3200.0,
+          "knob_vcf_drive": 2.4,
+          "knob_env_attack": 0.005,
+          "knob_env_decay": 0.24,
+          "knob_env_sustain": 0.18,
+          "knob_env_release": 0.2,
+          "knob_dly_mix": 0.08
+        }
+      },
+      {
+        "id": "cosmic_lfo_sweep",
+        "name": "03. Kosmische LFO Modulated Pad",
+        "cables": [
+          [
+            "socket_vco1_out",
+            "socket_vcf_in"
+          ],
+          [
+            "socket_vco2_out",
+            "socket_vcf_in"
+          ],
+          [
+            "socket_lfo_out",
+            "socket_vcf_cutoff_cv"
+          ],
+          [
+            "socket_lfo_out",
+            "socket_vco_pitch_cv"
+          ],
+          [
+            "socket_vcf_out",
+            "socket_vca_in"
+          ],
+          [
+            "socket_vcf_out",
+            "socket_dly_in"
+          ]
+        ],
+        "knobs": {
+          "knob_vco1_pitch": 0.0,
+          "knob_vco1_wave": 0.5,
+          "knob_vco2_detune": 14.0,
+          "knob_vco2_mix": 0.65,
+          "knob_vcf_cutoff": 980.0,
+          "knob_vcf_resonance": 6.8,
+          "knob_vcf_env_amt": 1200.0,
+          "knob_env_attack": 0.35,
+          "knob_env_decay": 0.85,
+          "knob_env_sustain": 0.75,
+          "knob_env_release": 1.4,
+          "knob_lfo_rate": 4.2,
+          "knob_lfo_depth": 0.45,
+          "knob_dly_time": 0.42,
+          "knob_dly_mix": 0.45
+        }
+      },
+      {
+        "id": "phono_through_filter",
+        "name": "04. Vinyl Turntable -> Ladder VCF & BBD Delay",
+        "cables": [
+          [
+            "socket_phono_out",
+            "socket_vcf_in"
+          ],
+          [
+            "socket_vcf_out",
+            "socket_dly_in"
+          ],
+          [
+            "socket_lfo_out",
+            "socket_vcf_cutoff_cv"
+          ]
+        ],
+        "knobs": {
+          "knob_vcf_cutoff": 2400.0,
+          "knob_vcf_resonance": 3.2,
+          "knob_lfo_rate": 0.6,
+          "knob_lfo_depth": 0.25,
+          "knob_dly_time": 0.36,
+          "knob_dly_mix": 0.3
+        }
+      }
+    ]
+  }
+}

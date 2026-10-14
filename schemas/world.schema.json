@@ -1,0 +1,115 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Modular Synth & Turntable Studio World Record Schema",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "contract_ref",
+    "revision",
+    "coordinate_frame",
+    "selected_visual_direction",
+    "assets",
+    "materials",
+    "camera_presets",
+    "lighting_rig",
+    "entities"
+  ],
+  "properties": {
+    "schema_version": { "type": "string" },
+    "contract_ref": { "type": "string" },
+    "revision": { "type": "integer" },
+    "coordinate_frame": {
+      "type": "string",
+      "enum": ["threejs_meters_yup", "blender_meters_zup"]
+    },
+    "selected_visual_direction": {
+      "type": "object",
+      "required": ["id", "name", "rationale", "reference_images", "settled_decisions"],
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "rationale": { "type": "string" },
+        "reference_images": { "type": "array", "items": { "type": "string" } },
+        "settled_decisions": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "assets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["asset_id", "type", "source_path", "runtime_path", "revision", "generator_script"],
+        "properties": {
+          "asset_id": { "type": "string" },
+          "type": { "type": "string", "enum": ["glb_model", "texture_albedo", "texture_normal", "texture_roughness", "audio_wav", "concept_image"] },
+          "source_path": { "type": "string" },
+          "runtime_path": { "type": "string" },
+          "revision": { "type": "integer" },
+          "generator_script": { "type": "string" }
+        }
+      }
+    },
+    "materials": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["material_id", "base_color_hex", "roughness", "metalness", "notes"],
+        "properties": {
+          "material_id": { "type": "string" },
+          "base_color_hex": { "type": "string" },
+          "roughness": { "type": "number" },
+          "metalness": { "type": "number" },
+          "textures": { "type": "object" },
+          "notes": { "type": "string" }
+        }
+      }
+    },
+    "camera_presets": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "type": "object",
+        "required": ["preset_id", "label", "position_m", "target_m", "fov_deg"],
+        "properties": {
+          "preset_id": { "type": "string" },
+          "label": { "type": "string" },
+          "position_m": { "type": "array", "minItems": 3, "maxItems": 3, "items": { "type": "number" } },
+          "target_m": { "type": "array", "minItems": 3, "maxItems": 3, "items": { "type": "number" } },
+          "fov_deg": { "type": "number" }
+        }
+      }
+    },
+    "lighting_rig": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["light_id", "type", "color_hex", "intensity", "position_m"],
+        "properties": {
+          "light_id": { "type": "string" },
+          "type": { "type": "string" },
+          "color_hex": { "type": "string" },
+          "intensity": { "type": "number" },
+          "position_m": { "type": "array", "minItems": 3, "maxItems": 3, "items": { "type": "number" } }
+        }
+      }
+    },
+    "entities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["entity_id", "node_name", "parent_id", "category", "coord_tag", "position_m", "rotation_euler_deg", "scale", "material_id"],
+        "properties": {
+          "entity_id": { "type": "string" },
+          "node_name": { "type": "string" },
+          "parent_id": { "type": ["string", "null"] },
+          "category": { "type": "string" },
+          "coord_tag": { "type": "string", "enum": ["threejs_local_m", "blender_local_m"] },
+          "position_m": { "type": "array", "minItems": 3, "maxItems": 3, "items": { "type": "number" } },
+          "rotation_euler_deg": { "type": "array", "minItems": 3, "maxItems": 3, "items": { "type": "number" } },
+          "scale": { "type": "array", "minItems": 3, "maxItems": 3, "items": { "type": "number" } },
+          "material_id": { "type": "string" },
+          "contract_ref_id": { "type": "string" }
+        }
+      }
+    }
+  }
+}
